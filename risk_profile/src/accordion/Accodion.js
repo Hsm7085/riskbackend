@@ -12,7 +12,7 @@ export default function Accodion() {
 
   const [datavalue, setdata] = useState(new Set());
   const [value, setvalue] = useState(false);
-  const [selected, setSelected] = useState(true);
+  const [selected, setSelected] = useState(false);
   const [obj, setobj] = useState({ });
 
   const set = (i, val) => {
@@ -33,7 +33,10 @@ export default function Accodion() {
 
   const handleSubmit=async(event)=>{
     event.preventDefault();
-    await axios.post("/api",{obj}).then((response)=>{
+    const name=event.target.name.value;
+    const email=event.target.email.value;
+    const mobile=event.target.mobile.value;
+    await axios.post("/api",{obj,name,email,mobile}).then((response)=>{
         console.log("kjn",response.data);
     });
     navigate("/ThankYouPage");
@@ -58,16 +61,16 @@ export default function Accodion() {
             <div>
               <label htmlFor="name">Name</label>
               <br />
-              <input type="text" id="name" className="inputPopup" required />
+              <input type="text" name="name" id="name" className="inputPopup" required />
             </div>
             <div>
               <label htmlFor="email">Email </label> <br />
-              <input type="email" id="email" className="inputPopup" required />
+              <input type="email" id="email" name="email" className="inputPopup" required />
             </div>
             <div>
               <label htmlFor="Mobile">Mobile</label>
               <br />
-              <input type="tel" id="Mobile" className="inputPopup" required />
+              <input type="tel" id="Mobile" name="mobile" className="inputPopup" required />
             </div>
             <button type="submit"> Submit</button> <br />
           </form>
