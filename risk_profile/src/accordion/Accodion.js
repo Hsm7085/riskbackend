@@ -11,10 +11,10 @@ export default function Accodion() {
   const [value, setvalue] = useState(false);
   const [selected, setSelected] = useState(false);
   const [obj, setobj] = useState({});
-
-  
   const [validationMessages, setValidationMessages] = useState([]);
   const [formData, setFormData] = useState({});
+  var setnav = false;
+
   const handleChange = ({ target }) => {
     setFormData({ ...formData, [target.name]: target.value });
   };
@@ -23,26 +23,28 @@ export default function Accodion() {
     if (validationMessages.length < 0) {
       evt.preventDefault();
     }
-    console.log({
-      Name: formData.name,
-      Contact: formData.contact,
-      Email: formData.email,
-    });
   };
   const validateForm = () => {
     const { name, contact, email } = formData;
 
     setValidationMessages([]);
     let messages = [];
-    if (!name) {
-      messages.push("Name is required");
-    } else if (!contact) {
-      messages.push("Contact is required");
+    let regmobile = /^[0-9]+$/;
+    if (name.length < 3) {
+      messages.push("Name is too short");
+    }
+    else if (name.length > 30) {
+      messages.push("Name is too large");
+    } else if (contact.length != 10 || !regmobile.test(contact)) {
+      messages.push("Give Valid Mobile Number");
     } else if (
       email.charAt(email.length - 4) != "." &&
       email.charAt(email.length - 4) != "."
     ) {
       messages.push(". is not at correct position");
+    }
+    else {
+      setnav = true;
     }
     setValidationMessages(messages);
   };
@@ -57,8 +59,7 @@ export default function Accodion() {
     if (datavalue.size == RiskData.length) {
       setSelected(true);
     }
-    // console.log(datavalue);
-    console.log(obj);
+
   };
 
   const navigate = useNavigate();
@@ -70,9 +71,10 @@ export default function Accodion() {
     const email = event.target.email.value;
     const mobile = event.target.contact.value;
     await axios.post("/api", { obj, name, email, mobile }).then((response) => {
-      console.log(response.data);
     });
-     navigate("/ThankYouPage");
+    if (setnav) {
+      navigate("/ThankYouPage");
+    }
   };
 
   return (
@@ -101,6 +103,7 @@ export default function Accodion() {
                 className="inputPopup"
                 value={formData.name || ""}
                 onChange={handleChange}
+                required
               />
             </div>
             <div>
@@ -112,6 +115,7 @@ export default function Accodion() {
                 className="inputPopup"
                 value={formData.email || ""}
                 onChange={handleChange}
+                required
               />
             </div>
             <div>
@@ -124,6 +128,7 @@ export default function Accodion() {
                 className="inputPopup"
                 value={formData.contact || ""}
                 onChange={handleChange}
+                required
               />
             </div>
             <button type="submit"> Submit</button> <br />

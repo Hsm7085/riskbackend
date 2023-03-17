@@ -1,7 +1,7 @@
 import React from "react";
 
-export default function Value({ score, option, select,set}) {
-  
+export default function Value({ score, option, select, set }) {
+
   return (
     <div className="input">
       <label htmlFor={`opt${score}${select}`}>
@@ -10,9 +10,9 @@ export default function Value({ score, option, select,set}) {
           id={`opt${score}${select}`}
           value={option}
           name={select}
-          
-          onClick={(e)=>set(select,e.target.value)}
-          
+
+          onClick={(e) => set(select, e.target.value)}
+
           required
         />
         {option} <br />
