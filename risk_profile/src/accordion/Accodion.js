@@ -5,13 +5,47 @@ import MyAccodian from "./MyAccodian";
 import { useNavigate } from "react-router-dom";
 import "./accodion.css";
 
-
 export default function Accodion() {
 
   const [datavalue, setdata] = useState(new Set());
   const [value, setvalue] = useState(false);
-  const [selected, setSelected] = useState(true);
-  const [obj, setobj] = useState({ });
+  const [selected, setSelected] = useState(false);
+  const [obj, setobj] = useState({});
+
+  
+  const [validationMessages, setValidationMessages] = useState([]);
+  const [formData, setFormData] = useState({});
+  const handleChange = ({ target }) => {
+    setFormData({ ...formData, [target.name]: target.value });
+  };
+  const handleClick = (evt) => {
+    validateForm();
+    if (validationMessages.length < 0) {
+      evt.preventDefault();
+    }
+    console.log({
+      Name: formData.name,
+      Contact: formData.contact,
+      Email: formData.email,
+    });
+  };
+  const validateForm = () => {
+    const { name, contact, email } = formData;
+
+    setValidationMessages([]);
+    let messages = [];
+    if (!name) {
+      messages.push("Name is required");
+    } else if (!contact) {
+      messages.push("Contact is required");
+    } else if (
+      email.charAt(email.length - 4) != "." &&
+      email.charAt(email.length - 4) != "."
+    ) {
+      messages.push(". is not at correct position");
+    }
+    setValidationMessages(messages);
+  };
 
   const set = (i, val) => {
     if (!datavalue.has(i)) {
@@ -29,16 +63,17 @@ export default function Accodion() {
 
   const navigate = useNavigate();
 
-  const handleSubmit=async(event)=>{
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const name=event.target.name.value;
-    const email=event.target.email.value;
-    const mobile=event.target.mobile.value;
-    await axios.post("/api",{name,email,mobile,obj}).then((response)=>{
-        console.log("kjn",response.data);
+    handleClick();
+    const name = event.target.name.value;
+    const email = event.target.email.value;
+    const mobile = event.target.contact.value;
+    await axios.post("/api", { obj, name, email, mobile }).then((response) => {
+      console.log(response.data);
     });
-    navigate("/ThankYouPage");
-  }
+     navigate("/ThankYouPage");
+  };
 
   return (
     <>
@@ -55,23 +90,50 @@ export default function Accodion() {
       </section>
       {value && (
         <div className="popup">
-          <form action="" onSubmit={(e)=>handleSubmit(e)}>
+          <form action="" onSubmit={(e) => handleSubmit(e)}>
             <div>
               <label htmlFor="name">Name</label>
               <br />
-              <input type="text" name="name" id="name" className="inputPopup" required />
+              <input
+                type="text"
+                name="name"
+                id="name"
+                className="inputPopup"
+                value={formData.name || ""}
+                onChange={handleChange}
+              />
             </div>
             <div>
               <label htmlFor="email">Email </label> <br />
-              <input type="email" id="email" name="email" className="inputPopup" required />
+              <input
+                type="email"
+                id="email"
+                name="email"
+                className="inputPopup"
+                value={formData.email || ""}
+                onChange={handleChange}
+              />
             </div>
             <div>
               <label htmlFor="Mobile">Mobile</label>
               <br />
-              <input type="tel" id="Mobile" name="mobile" className="inputPopup" required />
+              <input
+                type="tel"
+                id="Mobile"
+                name="contact"
+                className="inputPopup"
+                value={formData.contact || ""}
+                onChange={handleChange}
+              />
             </div>
             <button type="submit"> Submit</button> <br />
           </form>
+          <div className="validationSummary">
+            {validationMessages.length > 0 && <span>Validation Summary </span>}
+            {validationMessages.map((vm) => (
+              <li key={vm}>{vm}</li>
+            ))}
+          </div>
         </div>
       )}
     </>
