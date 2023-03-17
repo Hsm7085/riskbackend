@@ -12,7 +12,8 @@ async function insertData(user){
     let name=user.name;
     let email=user.email;
     let mobile=user.mobile;
-    const abc=`insert into details(NAME,EMAIL,MOBILE,USERDATA) values('${name}','${email}','${mobile}','${data}')`;
+    const abc=`insert into details(NAME,EMAIL,MOBILE,USERDATA) values('${name}','${email}','${mobile}','${data}') ON DUPLICATE KEY UPDATE    
+    USERDATA='${data}'`;
    console.log(data);
     console.log(abc);
   let result;
@@ -21,6 +22,7 @@ async function insertData(user){
   }  
   catch(err){
     result=err;
+    console.log(err);
   }
   
     return result;

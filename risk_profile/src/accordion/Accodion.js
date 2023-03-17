@@ -7,12 +7,10 @@ import "./accodion.css";
 
 
 export default function Accodion() {
-  /* eslint-disable */
-  // const [data, setData] = useState(RiskData);
 
   const [datavalue, setdata] = useState(new Set());
   const [value, setvalue] = useState(false);
-  const [selected, setSelected] = useState(false);
+  const [selected, setSelected] = useState(true);
   const [obj, setobj] = useState({ });
 
   const set = (i, val) => {
@@ -36,7 +34,7 @@ export default function Accodion() {
     const name=event.target.name.value;
     const email=event.target.email.value;
     const mobile=event.target.mobile.value;
-    await axios.post("/api",{obj,name,email,mobile}).then((response)=>{
+    await axios.post("/api",{name,email,mobile,obj}).then((response)=>{
         console.log("kjn",response.data);
     });
     navigate("/ThankYouPage");
