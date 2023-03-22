@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Value({ score, option, select, set }) {
+export default function Value({ score, option, select, set,handleScore }) {
 
   return (
     <div className="input">
@@ -11,7 +11,7 @@ export default function Value({ score, option, select, set }) {
           value={option}
           name={select}
 
-          onClick={(e) => set(select, e.target.value)}
+          onClick={(e) => {set(select, e.target.value); handleScore(select,score)}} 
 
           required
         />

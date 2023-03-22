@@ -18,7 +18,7 @@ export const RiskData =[
                 "option": "Less than 30 Years"
             },
             {
-                "score": "5",
+                "score": 5,
                 "option": "hi"
             }
         ],
@@ -226,7 +226,7 @@ export const RiskData =[
                 "option": "Worst Year = -18% and Best Year = 35%"
             },
             {
-                "score": "6",
+                "score": 6,
                 "option": "hi"
             }
         ],
@@ -236,15 +236,15 @@ export const RiskData =[
     {
         "choices": [
             {
-                "score": "1",
+                "score": 1,
                 "option": "hi"
             },
             {
-                "score": "2",
+                "score": 2,
                 "option": "hey"
             },
             {
-                "score": "3",
+                "score": 3,
                 "option": "helloo"
             }
         ],
@@ -254,11 +254,11 @@ export const RiskData =[
     {
         "choices": [
             {
-                "score": "1",
+                "score": 1,
                 "option": "hh"
             },
             {
-                "score": "2",
+                "score": 2,
                 "option": "fdfd"
             }
         ],
