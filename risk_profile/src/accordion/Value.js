@@ -1,22 +1,25 @@
 import React from "react";
 
-export default function Value({ score, option, select, set,handleScore }) {
-
+export default function Value(props) {
+  
   return (
-    <div className="input">
-      <label htmlFor={`opt${score}${select}`}>
+    
+      <div className="input table">
+      <label htmlFor={`opt${props.score}${props.select}`}>
         <input
           type="radio"
-          id={`opt${score}${select}`}
-          value={option}
-          name={select}
+          id={`opt${props.score}${props.select}`}
+          value={props.option}
+          name={props.select}
 
-          onClick={(e) => {set(select, e.target.value); handleScore(select,score)}} 
+          onChange={(e) => {props.set(props.select, e.target.value); props.handleScore(props.select,props.score) }} 
 
           required
+          checked={props.obj[props.select]===props.option}
         />
-        {option} <br />
+        {props.option} 
       </label>
-    </div>
+      </div>
+    
   );
 }

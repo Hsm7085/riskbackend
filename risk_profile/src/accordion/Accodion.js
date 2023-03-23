@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import { RiskData } from "./api";
 import MyAccodian from "./MyAccodian";
-// import { useNavigate } from "react-router-dom";
 import "./accodion.css";
 import Gauge from "./Graph";
 
@@ -53,7 +52,7 @@ export default function Accodion() {
       setName("Aggressive");
     }
   };
-
+console.log("abc",obj);
   const handleChange = ({ target }) => {
     setFormData({ ...formData, [target.name]: target.value });
   };
@@ -123,14 +122,12 @@ export default function Accodion() {
 
   const RenewRiskProfile = () => {
     console.log("renew");
-    // setGaugeShow(false)
-    // setScoreVal(0);
-    // setCount([0])
     setName("");
     window.location.reload();
   };
 
   const [currentPage, setCurrPage] = useState(1);
+  // console.log(currentPage);
   const recordPerPage = 2;
   const lastIndex = currentPage * recordPerPage;
   const firstIndex = lastIndex - recordPerPage;
@@ -153,9 +150,9 @@ export default function Accodion() {
     <>
       <section className={`sec ${value && "cont"} ${gaugeShow && "cont"}`}>
         <h4>Please complete the risk profile questionnaire given below</h4>
-        <MyAccodian data={records} set={set} handleScore={handleScore} />
-        <button onClick={getPreviousQues}>Prev</button>
-        <button onClick={getNextQues}>Next</button>
+        <MyAccodian data={records} set={set} handleScore={handleScore} currentPage={currentPage} obj={obj} />
+        <button disabled={currentPage===1} onClick={getPreviousQues}>Prev</button>
+        <button disabled={currentPage===npage} onClick={getNextQues}>Next</button>
         <button
           disabled={!selected}
           className={currentPage === npage ? 'proceedbtn show' : 'content hide'}

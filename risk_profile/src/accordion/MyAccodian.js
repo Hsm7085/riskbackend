@@ -1,14 +1,12 @@
 import React from "react";
-// import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-// import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Value from "./Value";
 
-export default function MyAccodian({ data, set,handleScore }) {
+export default function MyAccodian(props) {
 
   return (
     <>
-      {data.map((curEle, i) => {
-        return <div className="container" key={i}>
+      {props.data.map((curEle, i) => {
+        return <div className="container" key={i+2*props.currentPage-1}>
           <div>
             <span className="design" >
               {curEle.serialNo}
@@ -23,7 +21,7 @@ export default function MyAccodian({ data, set,handleScore }) {
               {curEle.choices.map((id) => {
                 const { score } = id;
 
-                return <Value key={score} {...id} select={i} set={set} handleScore={handleScore}
+                return <Value key={score} {...id} select={i+2*props.currentPage-1} set={props.set} handleScore={props.handleScore} obj={props.obj}
                 />;
               })}
             </div>

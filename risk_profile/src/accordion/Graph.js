@@ -109,7 +109,7 @@ export default function Gauge(props) {
         {needle(props.value, data, cx, cy, iR, 140)}
       </PieChart>
       <hr />
-      <p>Valid upto 03-072106</p>
+      <p>Valid upto 03-07-2106</p>
         <button className="RenewBtn" onClick={()=>props.RenewRiskProfile()}>Renew Risk Profile</button>
     </div>
   );
