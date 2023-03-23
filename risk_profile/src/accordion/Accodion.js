@@ -4,7 +4,7 @@ import { RiskData } from "./api";
 import MyAccodian from "./MyAccodian";
 // import { useNavigate } from "react-router-dom";
 import "./accodion.css";
-import Gauge from "./Gauge";
+import Gauge from "./Graph";
 
 export default function Accodion() {
   const [datavalue, setdata] = useState(new Set());
@@ -19,9 +19,8 @@ export default function Accodion() {
 
   const [gaugeShow, setGaugeShow] = useState(false);
   const [scoreVal, setScoreVal] = useState(new Set());
-  const [name,setName]=useState();
+  const [name, setName] = useState();
   const handleScore = (i, value) => {
-
     count.push(value);
     addingScore();
   };
@@ -32,30 +31,26 @@ export default function Accodion() {
       sum += count[i];
     }
 
-    if(sum===0 && sum <=10){
+    if (sum === 0 && sum <= 10) {
       setScoreVal(sum);
-      setName("Conservative")
-    }
-    else if(sum>=11 && sum <=20){
+      setName("Conservative");
+    } else if (sum >= 11 && sum <= 20) {
       setScoreVal(sum);
-      setName("Moderate Conservative")
-    }
-    else if(sum>=21 && sum <=30){
+      setName("Moderate Conservative");
+    } else if (sum >= 21 && sum <= 30) {
       setScoreVal(sum);
-      setName("Moderate")
-    }
-    else if(sum >=31 && sum <=40){
+      setName("Moderate");
+    } else if (sum >= 31 && sum <= 40) {
       setScoreVal(sum);
-      setName("Moderate Aggressive")
-    }
-    else{
-      if(sum>50){
+      setName("Moderate Aggressive");
+    } else {
+      if (sum > 50) {
         setScoreVal(50);
-        setName("Aggressive")
+        setName("Aggressive");
         return;
       }
       setScoreVal(sum);
-      setName("Aggressive")
+      setName("Aggressive");
     }
   };
 
@@ -121,29 +116,51 @@ export default function Accodion() {
   };
 
   const gauegeSelected = () => {
+    console.log("selected");
     setGaugeShow(true);
     setvalue(false);
   };
 
-  const RenewRiskProfile = ()  =>{
-    console.log("renew")
+  const RenewRiskProfile = () => {
+    console.log("renew");
     // setGaugeShow(false)
     // setScoreVal(0);
     // setCount([0])
-    // setName('')
+    setName("");
     window.location.reload();
-    // console.log(count,name)
+  };
+
+  const [currentPage, setCurrPage] = useState(1);
+  const recordPerPage = 2;
+  const lastIndex = currentPage * recordPerPage;
+  const firstIndex = lastIndex - recordPerPage;
+  const records = RiskData.slice(firstIndex, lastIndex);
+  const npage = Math.ceil(RiskData.length / recordPerPage);
+
+  function getPreviousQues() {
+    if (currentPage !== 1) {
+      setCurrPage(currentPage - 1);
+    }
+  }
+
+  function getNextQues() {
+    if (currentPage !== npage) {
+      setCurrPage(currentPage + 1);
+    }
   }
 
   return (
     <>
       <section className={`sec ${value && "cont"} ${gaugeShow && "cont"}`}>
-        <h4>Please complete the risk profile given below</h4>
-        <MyAccodian data={RiskData} set={set} handleScore={handleScore} />
+        <h4>Please complete the risk profile questionnaire given below</h4>
+        <MyAccodian data={records} set={set} handleScore={handleScore} />
+        <button onClick={getPreviousQues}>Prev</button>
+        <button onClick={getNextQues}>Next</button>
         <button
           disabled={!selected}
+          className={currentPage === npage ? 'proceedbtn show' : 'content hide'}
           onClick={() => setvalue(true)}
-          className="proceedbtn"
+          // className="proceedbtn"
         >
           Proceed
         </button>
@@ -200,7 +217,13 @@ export default function Accodion() {
         </div>
       )}
 
-      {gaugeShow && <Gauge value={scoreVal} RenewRiskProfile={RenewRiskProfile} name={name}/>}
+      {gaugeShow && (
+        <Gauge
+          value={scoreVal}
+          RenewRiskProfile={RenewRiskProfile}
+          name={name}
+        />
+      )}
     </>
   );
 }

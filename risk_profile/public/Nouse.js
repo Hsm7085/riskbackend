@@ -13,7 +13,7 @@ const GaugeChart = () => {
 
   const width = 500;
   const height = 300;
-  const chartValue =10;
+  const chartValue =100;
   const slices = [
     {
       value: 50,
@@ -95,14 +95,12 @@ const GaugeChart = () => {
           strokeWidth="4"
           stroke="black"
           fill="none"
-          strokeLinecap="round"
+          // strokeLinecap="round"
         />
         <circle cx={cx} cy={cy} r={100 * 0.1} fill="orange" stroke="none"/>
       </g>
     );
   };
-  //125
-  //150
 
   return (
     <div className="gaugecenter" style={{ width, height: 400 }}>
@@ -135,7 +133,7 @@ const GaugeChart = () => {
           >
             <Label
               value={chartValue}
-              position="centerBottom" //
+              position="centerBottom" 
               offset={-20}
               className="gauge-label"
               fontSize="50px"

@@ -43,8 +43,8 @@ const needle = (value, data, cx, cy, iR, oR) => {
       cy={y0}
       r={100 * 0.1}
       strokeWidth="5"
-      fillOpacity={0}
-      fill="none"
+      // fillOpacity={0}
+      fill="orange"
       stroke="orange"
     />,
     <path

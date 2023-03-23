@@ -1,16 +1,16 @@
-.main-div {
-  width: 75%;
+/* .main-div {
+  width: 100vw;
   margin: auto;
   box-shadow: 4px 5px 10px 15px whitesmoke;
-}
+} */
 
-.inner-div-question {
+/* .inner-div-question {
   display: inline-block;
   width: 90%;
   margin-left: 20px;
   border: 2px solid whitesmoke;
   background-color: #ffffff;
-}
+} */
 
 .design {
   font-size: 0.75em;
@@ -21,10 +21,10 @@
   font-weight: bold;
 }
 
-.arrow {
+/* .arrow {
   float: right;
   font-weight: bold;
-}
+} */
 
 .container {
   border: 2px solid rgb(237, 237, 237);
@@ -37,11 +37,11 @@
   margin: 50px auto;
   border: 1px solid rgb(202, 201, 201);
   padding: 2px;
-  width: 50%;
+  width: 55%;
 }
 
 h4 {
-  color: red;
+  color: black;
   padding-left: 10px;
 }
 
@@ -68,7 +68,7 @@ h4 {
 
 .proceedbtn {
   float: right;
-  margin: 10px;
+  margin-top: 0px;
   background-color: white;
 }
 
@@ -108,7 +108,8 @@ input[type="radio"] {
   margin-right: 5px;
   position: relative;
   top: 2px;
-  accent-color: gray;
+  accent-color: blue;
+  display: inline;
 }
 
 button[type="submit"] {
@@ -131,7 +132,7 @@ button[type="submit"] {
 }
 
 .content.show {
-  margin-top: 8px;
+  margin-top: 0px;
   display: block;
 }
 
@@ -147,10 +148,8 @@ li {
 
 .gaugecenter{
 position: absolute;
-top:0;
-left: 28vw;
-position: absolute;
-top:0;
+top:20px;
+left: 30vw;
 margin:auto;
 margin-left:auto;
 margin-top: 10%;
@@ -158,35 +157,35 @@ border: 2px solid rgb(172, 172, 172);
 background-color: white;
 }
 
-.gaugecenter h2 ,p{
+.gaugecenter h4 ,p{
   text-align: center;
 }
 
 .gaugecenter p{
   position: absolute;
-  top:70%;
+  top:75%;
   left: 40%;
 }
 
 hr{
   position: absolute;
   width: 90%;
-  top: 67.5%;
+  top: 72.9%;
   left: 20px;
   overflow: hidden;
 }
-.recharts-surface{
+/* .recharts-surface{
   padding-top: 0;
   padding-bottom: 0;
   margin-bottom: 0;
-}
+} */
 
-.PieChart{
+/* .PieChart{
   margin-bottom: 0;
   margin-top: 0;
   padding-top: 0;
   padding-bottom: 0;
-}
+} */
 
 .RenewBtn{
   background-color: #00dbab;
@@ -198,6 +197,15 @@ hr{
   padding-left:30px ;
   padding-right:30px ;
   position: absolute;
-  top: 83%;
+  top: 88%;
   left: 35%;
+}
+
+.questioningBorder{
+  border: 1px solid cyan;
+}
+
+span,label,input{
+  display: inline;
+  width:10px
 }
