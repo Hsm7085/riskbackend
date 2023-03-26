@@ -8,7 +8,7 @@ import Gauge from "./Graph";
 export default function Accodion() {
   const [datavalue, setdata] = useState(new Set());
   const [value, setvalue] = useState(false);
-  const [selected, setSelected] = useState(true);
+  const [selected, setSelected] = useState(false);
   const [obj, setobj] = useState({});
   const [validationMessages, setValidationMessages] = useState([]);
   const [formData, setFormData] = useState({});
@@ -148,22 +148,22 @@ console.log("abc",obj);
 
   return (
     <>
-      <section className={`sec ${value && "cont"} ${gaugeShow && "cont"}`}>
+      <section className={`outerContainer ${(value || gaugeShow) && "blurBackground"}`}>
         <h4>Please complete the risk profile questionnaire given below</h4>
         <MyAccodian data={records} set={set} handleScore={handleScore} currentPage={currentPage} obj={obj} />
         <button disabled={currentPage===1} onClick={getPreviousQues}>Prev</button>
-        <button disabled={currentPage===npage} onClick={getNextQues}>Next</button>
+        
         <button
           disabled={!selected}
-          className={currentPage === npage ? 'proceedbtn show' : 'content hide'}
+          className={currentPage === npage ? 'proceedBtnShow' : 'proceedBtnHide'}
           onClick={() => setvalue(true)}
-          // className="proceedbtn"
         >
           Proceed
         </button>
+        <button className="nextBtn" disabled={currentPage===npage} onClick={getNextQues}>Next</button>
       </section>
       {value && (
-        <div className="popup">
+        <div className="popupForm">
           <form action="" onSubmit={(e) => handleSubmit(e)}>
             <div>
               <label htmlFor="name">Name</label>
@@ -172,7 +172,7 @@ console.log("abc",obj);
                 type="text"
                 name="name"
                 id="name"
-                className="inputPopup"
+                className="inputPopupForm"
                 value={formData.name || ""}
                 onChange={handleChange}
                 required
@@ -184,7 +184,7 @@ console.log("abc",obj);
                 type="email"
                 id="email"
                 name="email"
-                className="inputPopup"
+                className="inputPopupForm"
                 value={formData.email || ""}
                 onChange={handleChange}
                 required
@@ -197,7 +197,7 @@ console.log("abc",obj);
                 type="tel"
                 id="Mobile"
                 name="contact"
-                className="inputPopup"
+                className="inputPopupForm"
                 value={formData.contact || ""}
                 onChange={handleChange}
                 required

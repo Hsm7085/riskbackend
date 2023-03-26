@@ -4,7 +4,7 @@ export default function Value(props) {
   
   return (
     
-      <div className="input table">
+     <div className="radioOptions">
       <label htmlFor={`opt${props.score}${props.select}`}>
         <input
           type="radio"
@@ -17,9 +17,10 @@ export default function Value(props) {
           required
           checked={props.obj[props.select]===props.option}
         />
-        {props.option} 
+       {props.option} 
       </label>
       </div>
+     
     
   );
 }

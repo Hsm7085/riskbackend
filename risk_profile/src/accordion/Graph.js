@@ -80,11 +80,10 @@ let renderLabel = ({
 
 export default function Gauge(props) {
   return (
-    <div className="gaugecenter">
+    <div className="gaugeCenter">
       <h2>Your Risk Profile is {props.name}</h2>
-      <PieChart width={600} height={400} className="PieChart">
+      <PieChart width={600} height={400}>
         <Pie
-          className="piesize"
           isAnimationActive={false}
           dataKey="value"
           startAngle={180}
@@ -110,7 +109,7 @@ export default function Gauge(props) {
       </PieChart>
       <hr />
       <p>Valid upto 03-07-2106</p>
-        <button className="RenewBtn" onClick={()=>props.RenewRiskProfile()}>Renew Risk Profile</button>
+        <button className="renewBtn" onClick={()=>props.RenewRiskProfile()}>Renew Risk Profile</button>
     </div>
   );
 }
