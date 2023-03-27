@@ -6,12 +6,14 @@ import "../Media/accodion.css";
 import Gauge from "./graph";
 
 export default function Accodion() {
+  
   const [datavalue, setdata] = useState(new Set());
   const [value, setvalue] = useState(false);
   const [selected, setSelected] = useState(false);
   const [obj, setobj] = useState({});
   const [validationMessages, setValidationMessages] = useState([]);
   const [formData, setFormData] = useState({});
+  // eslint-disable-next-line
   const [count, setCount] = useState([]);
   const [gaugeShow, setGaugeShow] = useState(false);
   const [scoreVal, setScoreVal] = useState(new Set());
@@ -19,9 +21,12 @@ export default function Accodion() {
   const [currentPage, setCurrPage] = useState(1);
   const [nav, setNav] = useState(false);
 
-
-  const handleScore = (i, value) => {
+//Calculate graph scores
+  const handleScore = (i,value) => {
+    if(count.length===i)
     count.push(value);
+    else
+    count[i]=value;
     addingScore();
   };
 
@@ -54,11 +59,14 @@ export default function Accodion() {
     }
   };
 
+
+  //Getting Updated Values in Forms
   const handleChange = ({ target }) => {
     setFormData({ ...formData, [target.name]: target.value });
   };
-  
-  const handleClick = (evt) => {
+
+  //Frontend Validation 
+    const handleClick = (evt) => {
     validateForm();
     if (validationMessages.length < 0) {
       evt.preventDefault();
@@ -88,6 +96,7 @@ export default function Accodion() {
     setValidationMessages(messages);
   };
 
+//Store index and their answers in object
   const set = (i, val, score) => {
     if (!datavalue.has(i)) {
       datavalue.add(i);
@@ -100,6 +109,7 @@ export default function Accodion() {
     }
   };
 
+  //Axios call on submit
   const handleSubmit = async (event) => {
     event.preventDefault();
     handleClick();
@@ -116,7 +126,7 @@ export default function Accodion() {
   };
 
 
-
+//reload page
   const RenewRiskProfile = () => {
     setName("");
     window.location.reload();
@@ -129,19 +139,21 @@ export default function Accodion() {
   const records = RiskData.slice(firstIndex, lastIndex);
   const npage = Math.ceil(RiskData.length / recordPerPage);
 
-
+//Get previous questions
   function getPreviousQues() {
     if (currentPage !== 1) {
       setCurrPage(currentPage - 1);
     }
   }
 
+  //Get next questions
   function getNextQues() {
     if (currentPage !== npage) {
       setCurrPage(currentPage + 1);
     }
   }
 
+ 
   return (
     <>
       <section className={`outerContainer ${(value || gaugeShow) && "blurBackground"}`}>

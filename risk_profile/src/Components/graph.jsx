@@ -15,7 +15,6 @@ const cx = 300;
 const cy = 239;
 const iR = 120;
 const oR = 163.6;
-// const value = 800;
 
 const needle = (value, data, cx, cy, iR, oR) => {
   let total = 0;
@@ -42,7 +41,6 @@ const needle = (value, data, cx, cy, iR, oR) => {
       cy={y0}
       r={100 * 0.1}
       strokeWidth="5"
-      // fillOpacity={0}
       fill="orange"
       stroke="orange"
     />,

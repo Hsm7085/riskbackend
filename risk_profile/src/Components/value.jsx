@@ -12,7 +12,7 @@ export default function Value(props) {
           value={props.option}
           name={props.select}
           className="inputTypeRadio"
-          onChange={(e) => {props.set(props.select, e.target.value); props.handleScore(props.select,props.score) }} 
+          onChange={(e) => {props.set(props.select, e.target.value); props.handleScore(props.select-1,props.score) }} 
 
           required
           checked={props.obj[props.select]===props.option}
