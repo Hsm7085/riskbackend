@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { RiskData } from "./api";
-import MyAccodian from "./MyAccodian";
-import "./accodion.css";
-import Gauge from "./Graph";
+import MyAccodian from "./myAccodian";
+import "../Media/accodion.css";
+import Gauge from "./graph";
 
 export default function Accodion() {
   const [datavalue, setdata] = useState(new Set());
@@ -12,13 +12,14 @@ export default function Accodion() {
   const [obj, setobj] = useState({});
   const [validationMessages, setValidationMessages] = useState([]);
   const [formData, setFormData] = useState({});
-  var setnav = false;
-  // eslint-disable-next-line
   const [count, setCount] = useState([]);
-
   const [gaugeShow, setGaugeShow] = useState(false);
   const [scoreVal, setScoreVal] = useState(new Set());
   const [name, setName] = useState();
+  const [currentPage, setCurrPage] = useState(1);
+  const [nav, setNav] = useState(false);
+
+
   const handleScore = (i, value) => {
     count.push(value);
     addingScore();
@@ -52,16 +53,18 @@ export default function Accodion() {
       setName("Aggressive");
     }
   };
-console.log("abc",obj);
+
   const handleChange = ({ target }) => {
     setFormData({ ...formData, [target.name]: target.value });
   };
+  
   const handleClick = (evt) => {
     validateForm();
     if (validationMessages.length < 0) {
       evt.preventDefault();
     }
   };
+
   const validateForm = () => {
     const { name, contact, email } = formData;
 
@@ -80,7 +83,7 @@ console.log("abc",obj);
     ) {
       messages.push(". is not at correct position");
     } else {
-      setnav = true;
+      setNav(true);
     }
     setValidationMessages(messages);
   };
@@ -97,8 +100,6 @@ console.log("abc",obj);
     }
   };
 
-  // const navigate = useNavigate();
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     handleClick();
@@ -107,32 +108,27 @@ console.log("abc",obj);
     const mobile = event.target.contact.value;
     await axios
       .post("/api", { obj, name, email, mobile })
-      .then((response) => {});
-    if (setnav) {
-      // navigate("/ThankYouPage");
-      gauegeSelected();
+      .then((response) => { });
+    if (nav) {
+      setGaugeShow(true);
+      setvalue(false);
     }
   };
 
-  const gauegeSelected = () => {
-    console.log("selected");
-    setGaugeShow(true);
-    setvalue(false);
-  };
+
 
   const RenewRiskProfile = () => {
-    console.log("renew");
     setName("");
     window.location.reload();
   };
 
-  const [currentPage, setCurrPage] = useState(1);
-  // console.log(currentPage);
+
   const recordPerPage = 2;
   const lastIndex = currentPage * recordPerPage;
   const firstIndex = lastIndex - recordPerPage;
   const records = RiskData.slice(firstIndex, lastIndex);
   const npage = Math.ceil(RiskData.length / recordPerPage);
+
 
   function getPreviousQues() {
     if (currentPage !== 1) {
@@ -149,18 +145,18 @@ console.log("abc",obj);
   return (
     <>
       <section className={`outerContainer ${(value || gaugeShow) && "blurBackground"}`}>
-        <h4>Please complete the risk profile questionnaire given below</h4>
+        <h4 className="containerHeading">Please complete the risk profile questionnaire given below</h4>
         <MyAccodian data={records} set={set} handleScore={handleScore} currentPage={currentPage} obj={obj} />
-        <button disabled={currentPage===1} onClick={getPreviousQues}>Prev</button>
-        
+        <button className="btn" disabled={currentPage === 1} onClick={getPreviousQues}>Prev</button>
+
         <button
           disabled={!selected}
-          className={currentPage === npage ? 'proceedBtnShow' : 'proceedBtnHide'}
+          className={currentPage === npage ? 'btn proceedBtnShow' : 'proceedBtnHide'}
           onClick={() => setvalue(true)}
         >
           Proceed
         </button>
-        <button className="nextBtn" disabled={currentPage===npage} onClick={getNextQues}>Next</button>
+        <button className="btn nextBtn" disabled={currentPage === npage} onClick={getNextQues}>Next</button>
       </section>
       {value && (
         <div className="popupForm">
@@ -203,7 +199,7 @@ console.log("abc",obj);
                 required
               />
             </div>
-            <button type="submit"> Submit</button> <br />
+            <button className="formSubmitBtn" type="submit"> Submit</button> <br />
           </form>
           <div className="validationSummary">
             {validationMessages.length > 0 && <span>Validation Summary </span>}

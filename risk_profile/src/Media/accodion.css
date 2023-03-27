@@ -4,20 +4,27 @@
   padding: 2px;
   width: 95%;
 }
-
 .blurBackground {
   opacity: 0.1;
 }
-
+.outerContainer .containerHeading {
+  padding-left: 10px;
+}
 .outerContainer .proceedBtnShow {
   float: right;
-  background-color: white;
+  padding: 5px;
 }
-
 .outerContainer .proceedBtnHide {
   display: none;
 }
-
+.outerContainer .btn {
+  padding: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: white;
+  border-radius: 5px;
+  border-color: white;
+}
 .outerContainer .nextBtn {
   float: right;
 }
@@ -38,7 +45,6 @@
   border-radius: 8px;
   font-size: 0.8em;
 }
-
 .popupForm .inputPopupForm {
   font-size: 0.75em;
   width: 100%;
@@ -47,15 +53,21 @@
   border: 1px solid rgb(203, 203, 203);
   border-radius: 4px;
 }
-
 .popupForm .validationSummary {
   margin-top: 8px;
   margin-left: 10px;
   color: rgb(0, 0, 0);
 }
-
 .popupForm .validationSummary li {
   color: rgb(255, 0, 0);
+}
+.popupForm .formSubmitBtn{
+  background-color: #00558a;
+  width: 102%;
+  margin-top: 15px;
+  color: white;
+  height: 30px;
+  font-size: 1em;
 }
 
 
@@ -68,12 +80,10 @@
   margin: 6px;
   padding: 6px;
 }
-
 .innerContainer:hover {
   border: 2px solid #00b1d2;
   box-shadow: 1px 0px 0px 3px #e8f9fb;
 }
-
 .innerContainer .questions {
   font-size: 0.75em;
   margin-top: 1.67em;
@@ -85,10 +95,17 @@
 
 
 
+
 .radioOptions {
   font-size: 0.85em;
 }
-
+.radioOptions .inputTypeRadio{
+  margin-right: 5px;
+  position: relative;
+  top: 2px;
+  accent-color: blue;
+  display: inline;
+}
 
 
 
@@ -104,19 +121,23 @@
   border: 2px solid rgb(172, 172, 172);
   background-color: white;
 }
-
-.gaugeCenter h4,
-p {
+.gaugeCenter .graphHeading {
   text-align: center;
 }
-
-.gaugeCenter p {
+.gaugeCenter .horizontalLine{
   position: absolute;
+  width: 90%;
+  top: 67.6%;
+  left: 20px;
+  overflow: hidden;
+}
+.gaugeCenter .graphfooterText {
+  position: absolute;
+  text-align: center;
   top: 75%;
   left: 40%;
 }
-
-.gaugeCenter .renewBtn {
+ .gaugeCenter .refreshquestionBtn {
   background-color: #00dbab;
   padding: 10px;
   color: white;
@@ -128,72 +149,4 @@ p {
   position: absolute;
   top: 88%;
   left: 35%;
-}
-
-.gaugeCenter h2 {
-  text-align: center;
-}
-
-
-
-
-h4 {
-  color: black;
-  padding-left: 10px;
-}
-
-
-
-
-
-label {
-  text-overflow: ellipsis;
-  white-space: wrap;
-  width: auto;
-}
-
-
-
-
-input[type="radio"] {
-  margin-right: 5px;
-  position: relative;
-  top: 2px;
-  accent-color: blue;
-  display: inline;
-}
-
-
-
-
-button[type="submit"] {
-  background-color: #00558a;
-  width: 102%;
-  margin-top: 15px;
-  color: white;
-  height: 30px;
-  font-size: 1em;
-}
-
-
-
-
-button {
-  padding: 5px;
-  padding-left: 20px;
-  padding-right: 20px;
-  background-color: white;
-  border-radius: 5px;
-
-}
-
-
-
-
-hr {
-  position: absolute;
-  width: 90%;
-  top: 67.6%;
-  left: 20px;
-  overflow: hidden;
 }

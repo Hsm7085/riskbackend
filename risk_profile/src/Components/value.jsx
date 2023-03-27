@@ -11,7 +11,7 @@ export default function Value(props) {
           id={`opt${props.score}${props.select}`}
           value={props.option}
           name={props.select}
-
+          className="inputTypeRadio"
           onChange={(e) => {props.set(props.select, e.target.value); props.handleScore(props.select,props.score) }} 
 
           required

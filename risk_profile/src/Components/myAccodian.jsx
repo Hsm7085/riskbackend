@@ -1,5 +1,5 @@
 import React from "react";
-import Value from "./Value";
+import Value from "./value";
 
 export default function MyAccodian(props) {
 

@@ -1,4 +1,3 @@
-/* eslint-disable no-shadow */
 import React from "react";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
 
@@ -81,7 +80,7 @@ let renderLabel = ({
 export default function Gauge(props) {
   return (
     <div className="gaugeCenter">
-      <h2>Your Risk Profile is {props.name}</h2>
+      <h2 className="graphHeading">Your Risk Profile is {props.name}</h2>
       <PieChart width={600} height={400}>
         <Pie
           isAnimationActive={false}
@@ -107,9 +106,9 @@ export default function Gauge(props) {
         <Tooltip />
         {needle(props.value, data, cx, cy, iR, 140)}
       </PieChart>
-      <hr />
-      <p>Valid upto 03-07-2106</p>
-        <button className="renewBtn" onClick={()=>props.RenewRiskProfile()}>Renew Risk Profile</button>
+      <hr className="horizontalLine"/>
+      <p className="graphfooterText">Valid upto 03-07-2106</p>
+      <button className="refreshquestionBtn" onClick={()=>props.RenewRiskProfile()}>Renew Risk Profile</button>
     </div>
   );
 }

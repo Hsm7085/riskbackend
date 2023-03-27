@@ -1,5 +1,5 @@
 import React from 'react'
-import Accodion from './accordion/Accodion'
+import Accodion from './Components/index'
 import { BrowserRouter } from 'react-router-dom'
 import { Route,Routes } from 'react-router-dom'
 
