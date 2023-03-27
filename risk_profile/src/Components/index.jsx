@@ -19,7 +19,7 @@ export default function Accodion() {
   const [scoreVal, setScoreVal] = useState(new Set());
   const [name, setName] = useState();
   const [currentPage, setCurrPage] = useState(1);
-  const [nav, setNav] = useState(false);
+  let nav=false;
 
 //Calculate graph scores
   const handleScore = (i,value) => {
@@ -91,7 +91,7 @@ export default function Accodion() {
     ) {
       messages.push(". is not at correct position");
     } else {
-      setNav(true);
+      nav=true;
     }
     setValidationMessages(messages);
   };
@@ -113,13 +113,14 @@ export default function Accodion() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     handleClick();
+    if (nav) {
     const name = event.target.name.value;
     const email = event.target.email.value;
     const mobile = event.target.contact.value;
     await axios
       .post("/api", { obj, name, email, mobile })
-      .then((response) => { });
-    if (nav) {
+      .then((res) => {console.log("backend:",res.data) });
+    
       setGaugeShow(true);
       setvalue(false);
     }
