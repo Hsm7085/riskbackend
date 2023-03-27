@@ -15,7 +15,7 @@ const insertData = async (req, res) => {
     res.send({ status: -1, message: "Something is not good" });
   } else if (email.charAt(email.length - 4) !== "." && email.charAt(email.length - 4) !== ".") {
     res.send({ status: -1, message: "Something is not good" });
-  } else if (obj !== null) {
+  } else if (obj === null) {
     res.send({ status: -1, message: "Something is not good" });
   } else {
     const res1 = await services.insertData(req.body);
