@@ -7,5 +7,6 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
 router.post('/api', usercontroller.insertData);
+router.get('/get', usercontroller.getData);
 
 module.exports = router;

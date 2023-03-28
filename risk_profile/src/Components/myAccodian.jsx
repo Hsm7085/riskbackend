@@ -18,7 +18,7 @@ export default function MyAccodian(props) {
               {curEle.choices.map((id) => {
                 const { score } = id;
 
-                return <Value key={score} {...id} select={i+2*props.currentPage-1} set={props.set} handleScore={props.handleScore} obj={props.obj}
+                return <Value key={score} {...id} select={i+2*props.currentPage-1} set={props.set}  obj={props.obj}
                 />;
               })}
               </div>

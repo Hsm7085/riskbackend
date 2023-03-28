@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { RiskData } from "./api";
 import MyAccodian from "./myAccodian";
@@ -6,58 +6,22 @@ import "../Media/accodion.css";
 import Gauge from "./graph";
 
 export default function Accodion() {
-  
-  const [datavalue, setdata] = useState(new Set());
+
+
   const [value, setvalue] = useState(false);
   const [selected, setSelected] = useState(false);
   const [obj, setobj] = useState({});
   const [validationMessages, setValidationMessages] = useState([]);
   const [formData, setFormData] = useState({});
-  // eslint-disable-next-line
-  const [count, setCount] = useState([]);
+
   const [gaugeShow, setGaugeShow] = useState(false);
   const [scoreVal, setScoreVal] = useState(new Set());
   const [name, setName] = useState();
   const [currentPage, setCurrPage] = useState(1);
-  let nav=false;
+  var nav = false;
+  var sum = 0;
+ 
 
-//Calculate graph scores
-  const handleScore = (i,value) => {
-    if(count.length===i)
-    count.push(value);
-    else
-    count[i]=value;
-    addingScore();
-  };
-
-  const addingScore = () => {
-    let sum = 0;
-    for (let i = 0; i < count.length; i++) {
-      sum += count[i];
-    }
-
-    if (sum === 0 && sum <= 10) {
-      setScoreVal(sum);
-      setName("Conservative");
-    } else if (sum >= 11 && sum <= 20) {
-      setScoreVal(sum);
-      setName("Moderate Conservative");
-    } else if (sum >= 21 && sum <= 30) {
-      setScoreVal(sum);
-      setName("Moderate");
-    } else if (sum >= 31 && sum <= 40) {
-      setScoreVal(sum);
-      setName("Moderate Aggressive");
-    } else {
-      if (sum > 50) {
-        setScoreVal(50);
-        setName("Aggressive");
-        return;
-      }
-      setScoreVal(sum);
-      setName("Aggressive");
-    }
-  };
 
 
   //Getting Updated Values in Forms
@@ -66,7 +30,7 @@ export default function Accodion() {
   };
 
   //Frontend Validation 
-    const handleClick = (evt) => {
+  const handleClick = (evt) => {
     validateForm();
     if (validationMessages.length < 0) {
       evt.preventDefault();
@@ -91,43 +55,69 @@ export default function Accodion() {
     ) {
       messages.push(". is not at correct position");
     } else {
-      nav=true;
+      nav = true;
     }
     setValidationMessages(messages);
   };
 
-//Store index and their answers in object
+  //Store index and their answers in object
   const set = (i, val, score) => {
-    if (!datavalue.has(i)) {
-      datavalue.add(i);
-      setdata(datavalue);
-    }
-    setobj((prevState) => ({ ...prevState, [i]: val, score }));
-
-    if (datavalue.size === RiskData.length) {
+    setobj((prevState) => ({ ...prevState, [i]: { val: val, score: score } }));
+  };
+  useEffect(() => {
+    console.log(Object.keys(obj).length, obj);
+    if (Object.keys(obj).length === RiskData.length) {
       setSelected(true);
     }
-  };
+  }, [obj]);
 
   //Axios call on submit
   const handleSubmit = async (event) => {
     event.preventDefault();
     handleClick();
     if (nav) {
-    const name = event.target.name.value;
-    const email = event.target.email.value;
-    const mobile = event.target.contact.value;
-    await axios
-      .post("/api", { obj, name, email, mobile })
-      .then((res) => {console.log("backend:",res.data) });
-    
+      const name = event.target.name.value;
+      const email = event.target.email.value;
+      const mobile = event.target.contact.value;
+      await axios
+        .post("/api", { obj, name, email, mobile })
+        .then((res) => { console.log("backend:", res.data) });
+
+      await axios
+        .get("/get", { params: { obj: obj, name: name, email: email, mobile: mobile } })
+        .then((res) => {
+          if (res.data && res.data.result) {
+            sum = res.data.result;
+          }
+        });
+
       setGaugeShow(true);
       setvalue(false);
+      addingScore();
+    }
+  };
+
+  const addingScore = () => {
+    if (sum === 0 && sum <= 10) {
+      setScoreVal(sum);
+      setName("Conservative");
+    } else if (sum >= 11 && sum <= 20) {
+      setScoreVal(sum);
+      setName("Moderate Conservative");
+    } else if (sum >= 21 && sum <= 30) {
+      setScoreVal(sum);
+      setName("Moderate");
+    } else if (sum >= 31 && sum <= 40) {
+      setScoreVal(sum);
+      setName("Moderate Aggressive");
+    } else {
+      setScoreVal(sum);
+      setName("Aggressive");
     }
   };
 
 
-//reload page
+  //reload page
   const RenewRiskProfile = () => {
     setName("");
     window.location.reload();
@@ -140,7 +130,7 @@ export default function Accodion() {
   const records = RiskData.slice(firstIndex, lastIndex);
   const npage = Math.ceil(RiskData.length / recordPerPage);
 
-//Get previous questions
+  //Get previous questions
   function getPreviousQues() {
     if (currentPage !== 1) {
       setCurrPage(currentPage - 1);
@@ -154,12 +144,12 @@ export default function Accodion() {
     }
   }
 
- 
+
   return (
     <>
       <section className={`outerContainer ${(value || gaugeShow) && "blurBackground"}`}>
         <h4 className="containerHeading">Please complete the risk profile questionnaire given below</h4>
-        <MyAccodian data={records} set={set} handleScore={handleScore} currentPage={currentPage} obj={obj} />
+        <MyAccodian data={records} set={set} currentPage={currentPage} obj={obj} />
         <button className="btn" disabled={currentPage === 1} onClick={getPreviousQues}>Prev</button>
 
         <button
@@ -223,13 +213,15 @@ export default function Accodion() {
         </div>
       )}
 
-      {gaugeShow && (
-        <Gauge
-          value={scoreVal}
-          RenewRiskProfile={RenewRiskProfile}
-          name={name}
-        />
-      )}
+      {
+        gaugeShow && (
+          <Gauge
+            value={scoreVal}
+            RenewRiskProfile={RenewRiskProfile}
+            name={name}
+          />
+        )}
+
     </>
   );
 }

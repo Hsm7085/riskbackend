@@ -21,7 +21,27 @@ async function insertData(user) {
         );
     })
 
+};
+
+
+async function getData(user){
+  let name = user.name;
+  let email = user.email;
+  let mobile = user.mobile;
+    const abc=`select USERDATA from details where NAME='${name}'and EMAIL='${email}'and MOBILE=${mobile}`;
+    return new Promise(function(resolve,reject){
+        connection.query(abc,function(err ,res){
+            if(err){
+                // return console.log(err);
+                reject(err.message);
+            }
+            resolve(res);
+          })
+          
+        }
+    )
 }
 
 
-module.exports = { insertData };
+
+module.exports = { insertData,getData };
