@@ -14,7 +14,6 @@ export default function Accodion() {
   const [currentPage, setCurrPage] = useState(1);
   const [risk, setRisk] = useState();
   var nav = false;
-
   useEffect(() => {
     axios
       .get("/riskProfileQuestions",)
@@ -22,16 +21,15 @@ export default function Accodion() {
         setRisk(res.data.result[0].questions);
       });
   }, []);
-
   //Getting Updated Values in Forms
   const handleChange = ({ target }) => {
     setFormData({ ...formData, [target.name]: target.value });
   };
   //Frontend Validation 
-  const handleClick = (evt) => {
+  const handleClick = (event) => {
     validateForm();
     if (validationMessages.length < 0) {
-      evt.preventDefault();
+      event.preventDefault();
     }
   };
   const validateForm = () => {
@@ -39,19 +37,22 @@ export default function Accodion() {
     setValidationMessages([]);
     let messages = [];
     let regmobile = /^[0-9]+$/;
-    if (name.length < 3) {
-      messages.push("Name is too short");
-    } else if (name.length > 30) {
-      messages.push("Name is too large");
-    } else if (contact.length !== 10 || !regmobile.test(contact)) {
-      messages.push("Give Valid Mobile Number");
-    } else if (
-      email.charAt(email.length - 4) !== "." &&
-      email.charAt(email.length - 4) !== "."
-    ) {
-      messages.push(". is not at correct position");
-    } else {
-      nav = true;
+    switch (true) {
+      case name.length < 3 :
+        messages.push("Name is too short");
+        break;
+      case name.length > 30:
+        messages.push("Name is too large");
+        break;
+      case contact.length !== 10 || !regmobile.test(contact):
+        messages.push("Give Valid Mobile Number");
+        break;
+      case email.charAt(email.length - 4) !== "." && email.charAt(email.length - 4) !== ".":
+        messages.push(". is not at correct position");
+        break;
+      default:
+        nav = true;
+        break;
     }
     setValidationMessages(messages);
   };
@@ -84,7 +85,6 @@ export default function Accodion() {
       setvalue(false);
     }
   };
-
   //reload page
   const RenewRiskProfile = () => {
     setName("");
