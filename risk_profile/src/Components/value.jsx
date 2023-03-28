@@ -1,11 +1,8 @@
 import React from "react";
 
 export default function Value(props) {
-  
   return (
-    
-     <div className="radioOptions">
-  
+    <div className="radioOptions">
       <label htmlFor={`opt${props.score}${props.select}`}>
         <input
           type="radio"
@@ -13,16 +10,12 @@ export default function Value(props) {
           value={props.option}
           name={props.select}
           className="inputTypeRadio"
-          onChange={(e) => {props.set(props.select, e.target.value,props.score);  }} 
-
+          onChange={(e) => { props.set(props.select, e.target.value, props.score); }}
           required
-          checked={props.obj[props.select] && props.obj[props.select].val===props.option}
-          
+          checked={props.obj[props.select] && props.obj[props.select].val === props.option}
         />
-       {props.option} 
+        {props.option}
       </label>
-      </div>
-     
-    
+    </div>
   );
 }

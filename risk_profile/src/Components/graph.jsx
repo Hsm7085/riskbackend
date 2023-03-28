@@ -1,7 +1,5 @@
 import React from "react";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
-
-
 const RADIAN = Math.PI / 180;
 const data = [
   { name: "Conservative", value: 10, color: "#6fe100" },
@@ -10,14 +8,12 @@ const data = [
   { name: "Moderate Aggressive", value: 10, color: "#eb9709" },
   { name: "Aggressive", value: 10, color: "#d83039" },
 ];
-
 const cx = 300;
 const cy = 239;
 const iR = 120;
 const oR = 163.6;
-
 const needle = (value, data, cx, cy, iR, oR) => {
-  let total = 0;
+  var total = 0;
   data.forEach((v) => {
     total += v.value;
   });
@@ -55,25 +51,23 @@ const needle = (value, data, cx, cy, iR, oR) => {
   ];
 };
 
-let renderLabel = ({
+var renderLabel = ({
   x, y, name
 }) => {
   return (
     <text
-        x={x}
-        y={y}
-        fill={x< 450 ? "#555555" : "red"}
-        textAnchor={x> cx ? "start" : "end"}
-        dominantBaseline="auto"
-        position="centerBottom"
-        fontWeight="bold"
-      >
+      x={x}
+      y={y}
+      fill={x < 450 ? "#555555" : "red"}
+      textAnchor={x > cx ? "start" : "end"}
+      dominantBaseline="auto"
+      position="centerBottom"
+      fontWeight="bold"
+    >
       {name}
     </text>
   );
 };
-
-
 
 export default function Gauge(props) {
   return (
@@ -104,9 +98,9 @@ export default function Gauge(props) {
         <Tooltip />
         {needle(props.value, data, cx, cy, iR, 140)}
       </PieChart>
-      <hr className="horizontalLine"/>
+      <hr className="horizontalLine" />
       <p className="graphfooterText">Valid upto 03-07-2106</p>
-      <button className="riskProfileUpdateBtn" onClick={()=>props.RenewRiskProfile()}>Renew Risk Profile</button>
+      <button className="riskProfileUpdateBtn" onClick={() => props.RenewRiskProfile()}>Renew Risk Profile</button>
     </div>
   );
 }

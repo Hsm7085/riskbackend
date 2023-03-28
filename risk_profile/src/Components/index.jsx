@@ -70,20 +70,18 @@ export default function Accodion() {
       const mobile = event.target.contact.value;
       await axios
         .post("/insertProfileData", { obj, name, email, mobile })
-        .then((res) => {});
+        .then((res) => { });
       await axios
         .get("/getGraphData", { params: { obj: obj, name: name, email: email, mobile: mobile } })
         .then((res) => {
           if (res.data && res.data.result) {
             setScoreVal(res.data.result.sum)
             setName(res.data.result.riskLabel)
-
           }
         }
         );
       setRiskMeter(true);
       setvalue(false);
-
     }
   };
 
