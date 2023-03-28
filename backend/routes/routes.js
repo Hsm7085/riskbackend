@@ -6,8 +6,8 @@ var bodyParser = require("body-parser");
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
-router.post('/api', usercontroller.insertData);
-router.get('/get', usercontroller.getData);
-router.get('/ques', usercontroller.getQues);
+router.post('/insertProfileData', usercontroller.insertData);
+router.get('/getGraphData', usercontroller.getData);
+router.get('/riskProfileQuestions', usercontroller.getQues);
 
 module.exports = router;

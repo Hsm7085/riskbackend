@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { RiskData } from "./api";
 import MyAccodian from "./myAccodian";
 import "../Media/scss/main.css";
 import Gauge from "./graph";
@@ -15,13 +14,13 @@ export default function Accodion() {
   const [currentPage, setCurrPage] = useState(1);
   const [risk, setRisk] = useState();
   var nav = false;
-  
+
   useEffect(() => {
-     axios
-        .get("/ques", )
-        .then((res) => {
-          setRisk(res.data.result[0].questions);
-        });  
+    axios
+      .get("/riskProfileQuestions",)
+      .then((res) => {
+        setRisk(res.data.result[0].questions);
+      });
   }, []);
 
   //Getting Updated Values in Forms
@@ -70,24 +69,24 @@ export default function Accodion() {
       const email = event.target.email.value;
       const mobile = event.target.contact.value;
       await axios
-        .post("/api", { obj, name, email, mobile })
-        .then((res) => { console.log("backend:", res.data) });
+        .post("/insertProfileData", { obj, name, email, mobile })
+        .then((res) => {});
       await axios
-        .get("/get", { params: { obj: obj, name: name, email: email, mobile: mobile } })
+        .get("/getGraphData", { params: { obj: obj, name: name, email: email, mobile: mobile } })
         .then((res) => {
           if (res.data && res.data.result) {
             setScoreVal(res.data.result.sum)
             setName(res.data.result.riskLabel)
-          
+
           }
-         }
+        }
         );
       setRiskMeter(true);
       setvalue(false);
-      
+
     }
   };
- 
+
   //reload page
   const RenewRiskProfile = () => {
     setName("");
@@ -97,7 +96,7 @@ export default function Accodion() {
   const lastIndex = currentPage * recordPerPage;
   const firstIndex = lastIndex - recordPerPage;
   const records = risk && risk.slice(firstIndex, lastIndex);
-  const npage = Math.ceil(RiskData.length / recordPerPage);
+  const npage = Math.ceil(risk && (Object.keys(risk).length / recordPerPage));
   //Get previous questions
   function getPreviousQues() {
     if (currentPage !== 1) {
@@ -110,20 +109,20 @@ export default function Accodion() {
       setCurrPage(currentPage + 1);
     }
   }
-  
+
   return (
     <>
       <section className={`outerContainer ${(value || riskMeter) && "blurBackground"}`}>
         <h4 className="containerHeading">Please complete the risk profile questionnaire given below</h4>
-        <MyAccodian 
-        data={records} 
-        set={set} 
-        currentPage={currentPage} 
-        obj={obj} 
+        <MyAccodian
+          data={records}
+          set={set}
+          currentPage={currentPage}
+          obj={obj}
         />
         <button className="btn" disabled={currentPage == 1} onClick={getPreviousQues}>Prev</button>
         <button
-          disabled={risk && risk.length != (obj && Object.keys(obj).length )}
+          disabled={risk && risk.length != (obj && Object.keys(obj).length)}
           className={currentPage == npage ? 'btn proceedBtnShow' : 'proceedBtnHide'}
           onClick={() => setvalue(true)}
         >
