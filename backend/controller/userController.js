@@ -28,11 +28,14 @@ const insertData = async (req, res) => {
 
 const getData=async (req,res)=>{
   const res1=await services.getData(req.query);
-  //console.log(result);
-  //  result.then((data)=>{
-  //  res.send(data);
-  // });
+ 
   res.send({ status: 0, message: "get Succesful", result: res1 });
 };
 
-module.exports = { insertData,getData };
+const getQues=async (req,res)=>{
+  const res1=await services.getQues();
+  
+  res.send({ status: 0, message: "get Succesful", result: res1 });
+};
+
+module.exports = { insertData,getData,getQues };

@@ -4,9 +4,6 @@
   padding: 2px;
   width: 95%;
 }
-.blurBackground {
-  opacity: 0.1;
-}
 .outerContainer .containerHeading {
   padding-left: 10px;
 }
@@ -28,10 +25,6 @@
 .outerContainer .nextBtn {
   float: right;
 }
-
-
-
-
 
 .popupForm {
   position: absolute;
@@ -61,7 +54,7 @@
 .popupForm .validationSummary li {
   color: rgb(255, 0, 0);
 }
-.popupForm .formSubmitBtn{
+.popupForm .formSubmitBtn {
   background-color: #00558a;
   width: 102%;
   margin-top: 15px;
@@ -69,10 +62,6 @@
   height: 30px;
   font-size: 1em;
 }
-
-
-
-
 
 .innerContainer {
   border: 2px solid rgb(205, 205, 205);
@@ -93,13 +82,10 @@
   font-weight: bold;
 }
 
-
-
-
 .radioOptions {
   font-size: 0.85em;
 }
-.radioOptions .inputTypeRadio{
+.radioOptions .inputTypeRadio {
   margin-right: 5px;
   position: relative;
   top: 2px;
@@ -107,11 +93,7 @@
   display: inline;
 }
 
-
-
-
-
-.gaugeCenter {
+.riskProfileGraphCenter {
   position: absolute;
   top: 20px;
   left: 30vw;
@@ -121,23 +103,23 @@
   border: 2px solid rgb(172, 172, 172);
   background-color: white;
 }
-.gaugeCenter .graphHeading {
+.riskProfileGraphCenter .graphHeading {
   text-align: center;
 }
-.gaugeCenter .horizontalLine{
+.riskProfileGraphCenter .horizontalLine {
   position: absolute;
   width: 90%;
   top: 67.6%;
   left: 20px;
   overflow: hidden;
 }
-.gaugeCenter .graphfooterText {
+.riskProfileGraphCenter .graphfooterText {
   position: absolute;
   text-align: center;
   top: 75%;
   left: 40%;
 }
- .gaugeCenter .refreshquestionBtn {
+.riskProfileGraphCenter .riskProfileUpdateBtn {
   background-color: #00dbab;
   padding: 10px;
   color: white;
@@ -150,3 +132,32 @@
   top: 88%;
   left: 35%;
 }
+
+@media screen and (max-width: 672px) {
+  .riskProfileGraphCenter {
+    position: absolute;
+    top: 123px;
+    left: 1vw;
+    margin: auto;
+    margin-left: auto;
+    margin-top: 50%;
+    width: 100vw;
+    border: 2px solid rgb(172, 172, 172);
+    background-color: white;
+  }
+  .popupForm {
+    position: absolute;
+    top: 40vh;
+    height: auto;
+    width: 60%;
+    margin-left: 15%;
+    border: 1px solid rgb(203, 203, 203);
+    padding: 30px;
+    background-color: white;
+    border-radius: 8px;
+    font-size: 0.8em;
+  }
+}
+.blurBackground {
+  opacity: 0.1;
+}/*# sourceMappingURL=main.css.map */
