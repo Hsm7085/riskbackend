@@ -41,10 +41,10 @@ export default function Accodion() {
       case name.length > 30:
         messages="Name is too large";
         break;
-      case contact.length !== 10 || !regmobile.test(contact):
+      case contact.length != 10 || !regmobile.test(contact):
         messages="Give Valid Mobile Number";
         break;
-      case email.charAt(email.length - 4) !== "." && email.charAt(email.length - 4) !== ".":
+      case email.charAt(email.length - 4) != "." && email.charAt(email.length - 4) != ".":
         messages=". is not at correct position";
         break;
       default:
