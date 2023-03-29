@@ -85,7 +85,7 @@
 .radioOptions {
   font-size: 0.85em;
 }
-.radioOptions .inputTypeRadio {
+.radioOptions .radioValues {
   margin-right: 5px;
   position: relative;
   top: 2px;

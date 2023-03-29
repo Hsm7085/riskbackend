@@ -2,18 +2,21 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import MyAccodian from "./myAccodian";
 import "../Media/scss/main.css";
-import Gauge from "./graph";
+import RiskGraph from "./graph";
 export default function Accodion() {
-  const [value, setvalue] = useState(false);
-  const [obj, setobj] = useState({});
+  const [value, setValue] = useState(false);
+  const [obj, setObj] = useState({});
   const [validationMessages, setValidationMessages] = useState([]);
   const [formData, setFormData] = useState({});
-  const [riskMeter, setRiskMeter] = useState(false);
-  const [scoreVal, setScoreVal] = useState(new Set());
-  const [name, setName] = useState();
+  const [riskMeter, setRiskMeter] = useState([]);
   const [currentPage, setCurrPage] = useState(1);
   const [risk, setRisk] = useState();
   var nav = false;
+  const recordPerPage = 2;
+  const lastIndex = currentPage * recordPerPage;
+  const firstIndex = lastIndex - recordPerPage;
+  const records = risk && risk.slice(firstIndex, lastIndex);
+  const totalPage = Math.ceil(risk && (Object.keys(risk).length / recordPerPage));
   useEffect(() => {
     axios
       .get("/riskProfileQuestions",)
@@ -25,20 +28,14 @@ export default function Accodion() {
   const handleChange = ({ target }) => {
     setFormData({ ...formData, [target.name]: target.value });
   };
-  //Frontend Validation 
-  const handleClick = (event) => {
-    validateForm();
-    if (validationMessages.length < 0) {
-      event.preventDefault();
-    }
-  };
+  //Forntend Validation
   const validateForm = () => {
     const { name, contact, email } = formData;
     setValidationMessages([]);
-    let messages = [];
-    let regmobile = /^[0-9]+$/;
+    var messages = [];
+    var regmobile = /^[0-9]+$/;
     switch (true) {
-      case name.length < 3 :
+      case name.length < 3:
         messages.push("Name is too short");
         break;
       case name.length > 30:
@@ -58,59 +55,41 @@ export default function Accodion() {
   };
   //Store index and their answers in object
   const set = (i, val, score) => {
-    setobj((prevState) => ({ ...prevState, [i]: { val: val, score: score } }));
+    setObj((prevState) => ({ ...prevState, [i]: { val: val, score: score } }));
   };
-
   //Axios call on submit
   const handleSubmit = async (event) => {
+    validateForm();
     event.preventDefault();
-    handleClick();
     if (nav) {
       const name = event.target.name.value;
       const email = event.target.email.value;
       const mobile = event.target.contact.value;
       await axios
         .post("/insertProfileData", { obj, name, email, mobile })
-        .then((res) => { });
-      await axios
-        .get("/getGraphData", { params: { obj: obj, name: name, email: email, mobile: mobile } })
         .then((res) => {
-          if (res.data && res.data.result) {
-            setScoreVal(res.data.result.sum)
-            setName(res.data.result.riskLabel)
-          }
-        }
-        );
-      setRiskMeter(true);
-      setvalue(false);
+          !res.data.status &&
+            axios
+              .get("/getGraphData", { params: { obj: obj, name: name, email: email, mobile: mobile } })
+              .then((res) => {
+                if (res.data && res.data.result) {
+                  riskMeter.push(true);
+                  riskMeter.push(res.data.result.sum);
+                  riskMeter.push(res.data.result.riskLabel);
+                  setValue(false);
+                }
+              }
+              );
+        })
     }
   };
   //reload page
   const RenewRiskProfile = () => {
-    setName("");
     window.location.reload();
   };
-  const recordPerPage = 2;
-  const lastIndex = currentPage * recordPerPage;
-  const firstIndex = lastIndex - recordPerPage;
-  const records = risk && risk.slice(firstIndex, lastIndex);
-  const npage = Math.ceil(risk && (Object.keys(risk).length / recordPerPage));
-  //Get previous questions
-  function getPreviousQues() {
-    if (currentPage !== 1) {
-      setCurrPage(currentPage - 1);
-    }
-  }
-  //Get next questions
-  function getNextQues() {
-    if (currentPage !== npage) {
-      setCurrPage(currentPage + 1);
-    }
-  }
-
   return (
     <>
-      <section className={`outerContainer ${(value || riskMeter) && "blurBackground"}`}>
+      <section className={`outerContainer ${(value || riskMeter[0]) && "blurBackground"}`}>
         <h4 className="containerHeading">Please complete the risk profile questionnaire given below</h4>
         <MyAccodian
           data={records}
@@ -118,15 +97,11 @@ export default function Accodion() {
           currentPage={currentPage}
           obj={obj}
         />
-        <button className="btn" disabled={currentPage == 1} onClick={getPreviousQues}>Prev</button>
-        <button
-          disabled={risk && risk.length != (obj && Object.keys(obj).length)}
-          className={currentPage == npage ? 'btn proceedBtnShow' : 'proceedBtnHide'}
-          onClick={() => setvalue(true)}
-        >
+        <button className="btn" disabled={currentPage == 1} onClick={()=>{(currentPage != 1) && setCurrPage(currentPage - 1)}}>Prev</button>
+        <button disabled={risk && risk.length != (obj && Object.keys(obj).length)} className={currentPage == totalPage ? 'btn proceedBtnShow' : 'proceedBtnHide'} onClick={() => setValue(true)} >
           Proceed
         </button>
-        <button className="btn nextBtn" disabled={currentPage == npage} onClick={getNextQues}>Next</button>
+        <button className="btn nextBtn" disabled={currentPage == totalPage} onClick={()=>{(currentPage != totalPage) && setCurrPage(currentPage + 1)}}>Next</button>
       </section>
       {value && (
         <div className="popupForm">
@@ -173,17 +148,16 @@ export default function Accodion() {
           </form>
           <div className="validationSummary">
             {validationMessages.length > 0 && <span>Validation Summary </span>}
-            {validationMessages.map((vm) => (
+            {validationMessages.length > 0 && validationMessages.map((vm) => (
               <li key={vm}>{vm}</li>
             ))}
           </div>
         </div>
       )} {
-        riskMeter && (
-          <Gauge
-            value={scoreVal}
+        riskMeter[0] && (
+          <RiskGraph
+            value={riskMeter}
             RenewRiskProfile={RenewRiskProfile}
-            name={name}
           />
         )}
     </>

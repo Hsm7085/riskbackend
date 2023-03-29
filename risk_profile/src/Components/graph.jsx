@@ -69,10 +69,10 @@ var renderLabel = ({
   );
 };
 
-export default function Gauge(props) {
+export default function RiskGraph(props) {
   return (
     <div className="riskProfileGraphCenter">
-      <h2 className="graphHeading">Your Risk Profile is {props.name}</h2>
+      <h2 className="graphHeading">Your Risk Profile is {props.value[2]}</h2>
       <PieChart width={600} height={400}>
         <Pie
           isAnimationActive={false}
@@ -96,7 +96,7 @@ export default function Gauge(props) {
           ))}
         </Pie>
         <Tooltip />
-        {needle(props.value, data, cx, cy, iR, 140)}
+        {needle(props.value[1], data, cx, cy, iR, 140)}
       </PieChart>
       <hr className="horizontalLine" />
       <p className="graphfooterText">Valid upto 03-07-2106</p>

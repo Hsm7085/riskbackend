@@ -51,6 +51,7 @@
     border: 1px solid rgb(203, 203, 203);
     border-radius: 4px;
   }
+
   .validationSummary {
     margin-top: 8px;
     margin-left: 10px;
@@ -95,7 +96,7 @@
 .radioOptions {
   font-size: 0.85em;
 
-  .inputTypeRadio {
+  .radioValues {
     margin-right: 5px;
     position: relative;
     top: 2px;
@@ -151,15 +152,15 @@
 
 @media screen and (max-width: 672px) {
   .riskProfileGraphCenter {
-  position: absolute;
-  top: 123px;
-  left: 1vw;
-  margin: auto;
-  margin-left: auto;
-  margin-top: 50%;
-  width: 100vw;
-  border: 2px solid rgb(172, 172, 172);
-  background-color: white;
+    position: absolute;
+    top: 123px;
+    left: 1vw;
+    margin: auto;
+    margin-left: auto;
+    margin-top: 50%;
+    width: 100vw;
+    border: 2px solid rgb(172, 172, 172);
+    background-color: white;
   }
 
   .popupForm {
@@ -173,9 +174,9 @@
     background-color: white;
     border-radius: 8px;
     font-size: 0.8em;
-}
+  }
 }
 
-.blurBackground{
+.blurBackground {
   opacity: 0.1;
 }

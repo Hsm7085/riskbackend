@@ -4,8 +4,8 @@ import Value from "./value";
 export default function MyAccodian(props) {
   return (
     <>
-      {props.data && props.data.map((currentElement, i) => {
-        return <div className="innerContainer" key={i + 2 * props.currentPage - 1}>
+      {props.data && props.data.map((currentElement, index) => {
+        return <div className="innerContainer" key={index + 2 * props.currentPage - 1}>
           <div className="questions" >
             {currentElement.serialNo}
             {". "}
@@ -18,7 +18,7 @@ export default function MyAccodian(props) {
                 return <Value
                   key={score}
                   {...id}
-                  select={i + 2 * props.currentPage - 1}
+                  select={index + 2 * props.currentPage - 1}
                   set={props.set}
                   obj={props.obj}
                 />;
