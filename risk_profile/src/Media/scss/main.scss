@@ -18,9 +18,7 @@
   }
 
   .btn {
-    padding: 5px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 5px 20px;
     background-color: white;
     border-radius: 5px;
     border-color: white;
@@ -51,12 +49,9 @@
     border: 1px solid rgb(203, 203, 203);
     border-radius: 4px;
   }
-
   .validationSummary {
-    margin-top: 8px;
-    margin-left: 10px;
+    margin: 8px 0px 0px 10px;
     color: rgb(0, 0, 0);
-
     li {
       color: rgb(255, 0, 0);
     }
@@ -85,10 +80,7 @@
 
   .questions {
     font-size: 0.75em;
-    margin-top: 1.67em;
-    margin-bottom: 1.67em;
-    margin-left: 0;
-    margin-right: 0;
+    margin-top: 1.67em 0px 1.67em 0px;
     font-weight: bold;
   }
 }
@@ -96,7 +88,7 @@
 .radioOptions {
   font-size: 0.85em;
 
-  .radioValues {
+  .inputTypeRadio {
     margin-right: 5px;
     position: relative;
     top: 2px;
@@ -109,9 +101,7 @@
   position: absolute;
   top: 20px;
   left: 30vw;
-  margin: auto;
-  margin-left: auto;
-  margin-top: 10%;
+  margin-top: 7%;
   border: 2px solid rgb(172, 172, 172);
   background-color: white;
 
@@ -136,13 +126,11 @@
 
   .riskProfileUpdateBtn {
     background-color: #00dbab;
-    padding: 10px;
+    padding: 10px 30px;
     color: white;
     font-size: 0.9rem;
     border: 1px solid #4ae1bc;
     border-radius: 4px;
-    padding-left: 30px;
-    padding-right: 30px;
     position: absolute;
     top: 88%;
     left: 35%;
@@ -152,15 +140,13 @@
 
 @media screen and (max-width: 672px) {
   .riskProfileGraphCenter {
-    position: absolute;
-    top: 123px;
-    left: 1vw;
-    margin: auto;
-    margin-left: auto;
-    margin-top: 50%;
-    width: 100vw;
-    border: 2px solid rgb(172, 172, 172);
-    background-color: white;
+  position: absolute;
+  top: 123px;
+  left: 1vw;
+  margin-top: 50%;
+  width: 100vw;
+  border: 2px solid rgb(172, 172, 172);
+  background-color: white;
   }
 
   .popupForm {
@@ -174,9 +160,9 @@
     background-color: white;
     border-radius: 8px;
     font-size: 0.8em;
-  }
+}
 }
 
-.blurBackground {
+.blurBackground{
   opacity: 0.1;
 }

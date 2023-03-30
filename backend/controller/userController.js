@@ -6,13 +6,13 @@ const insertData = async (req, res) => {
   const mobile = req.body.mobile;
   const obj = req.body.obj;
   const regmobile = /^[0-9]+$/;
+  const regemail = /^[a-zA-Z0-9._%+-]+@(?:[a-zA-Z0-9-]+\.)+(?:com|co|in)$/;
 
   if (name.length >= 3 &&
     name.length <= 30 &&
     mobile.length == 10 &&
     regmobile.test(mobile) &&
-    (email.charAt(email.length - 4) == "." || email.charAt(email.length - 4) == ".") &&
-    obj != null) {
+    obj != null && regemail.test(email)) {
     try {
       const response = await services.insertData(req.body);
       res.send({ status: 0, message: "Request Successful", result: response });
