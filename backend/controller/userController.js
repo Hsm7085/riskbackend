@@ -1,12 +1,13 @@
-const services = require('../services/userservices');
+const { insertDataServices, getDataServices, getQuesServices } = require('../services/userservices')
 
-const insertData = async (req, res) => {
-  const name = req.body.name;
-  const email = req.body.email;
-  const mobile = req.body.mobile;
-  const obj = req.body.obj;
-  const regmobile = /^[0-9]+$/;
-  const regemail = /^[a-zA-Z0-9._%+-]+@(?:[a-zA-Z0-9-]+\.)+(?:com|co|in)$/;
+const insertDataController = async (req, res) => {
+  const user = req.body
+  const name = user.name
+  const email = user.email
+  const mobile = user.mobile
+  const obj = user.obj
+  const regmobile = /^[0-9]+$/
+  const regemail = /^[a-zA-Z0-9._%+-]+@(?:[a-zA-Z0-9-]+\.)+(?:com|co|in)$/
 
   if (name.length >= 3 &&
     name.length <= 30 &&
@@ -14,32 +15,32 @@ const insertData = async (req, res) => {
     regmobile.test(mobile) &&
     obj != null && regemail.test(email)) {
     try {
-      const response = await services.insertData(req.body);
-      res.send({ status: 0, message: "Request Successful", result: response });
+      const response = await insertDataServices(user)
+      res.send({ status: 0, message: "Request Successful", result: response })
     } catch (error) {
-      res.send({ status: -1, message: "Something went wrong", result: error });
+      res.send({ status: -1, message: "Something went wrong", result: error })
     }
   } else {
-    res.send({ status: -1, message: "Something is not good" });
+    res.send({ status: -1, message: "Something is not good" })
   }
-};
+}
 
-const getData = async (req, res) => {
+const getDataController = async (req, res) => {
   try {
-    const response = await services.getData(req.query);
-    res.send({ status: 0, message: "get Succesful", result: response });
+    const response = await getDataServices(req.query)
+    res.send({ status: 0, message: "get Succesful", result: response })
   } catch (error) {
-    res.send({ status: -1, message: "Something went wrong", result: error });
+    res.send({ status: -1, message: "Something went wrong", result: error })
   }
-};
+}
 
-const getQues = async (req, res) => {
+const getQuesController = async (req, res) => {
   try {
-    const response = await services.getQues();
-    res.send({ status: 0, message: "get Succesful", result: response });
+    const response = await getQuesServices()
+    res.send({ status: 0, message: "get Succesful", result: response })
   } catch (error) {
-    res.send({ status: -1, message: "Something went wrong", result: error });
+    res.send({ status: -1, message: "Something went wrong", result: error })
   }
-};
+}
 
-module.exports = { insertData, getData, getQues };
+module.exports = { insertDataController, getDataController, getQuesController }
