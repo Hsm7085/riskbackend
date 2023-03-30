@@ -68,7 +68,7 @@ var renderLabel = ({
 export default function RiskGraph(props) {
   return (
     <div className="riskProfileGraphCenter">
-      <h2 className="graphHeading">Your Risk Profile is {props.value[2]}</h2>
+      <h2 className="graphHeading">Your Risk Profile is {props.value.result.riskLabel}</h2>
       <PieChart width={600} height={400}>
         <Pie
           isAnimationActive={false}
@@ -92,7 +92,7 @@ export default function RiskGraph(props) {
           ))}
         </Pie>
         <Tooltip />
-        {needle(props.value[1], data, horizontalAxis, verticalAxis, innerRadius, 140)}
+        {needle(props.value.result.sum, data, horizontalAxis, verticalAxis, innerRadius, 140)}
       </PieChart>
       <hr className="horizontalLine" />
       <p className="graphfooterText">Valid upto 03-07-2106</p>

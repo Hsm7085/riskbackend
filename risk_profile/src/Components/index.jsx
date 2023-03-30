@@ -8,7 +8,7 @@ export default function Accodion() {
   const [obj, setObj] = useState({});
   const [validationMessages, setValidationMessages] = useState();
   const [formData, setFormData] = useState({});
-  const [riskMeter, setRiskMeter] = useState([]);
+  const [riskMeter, setRiskMeter] = useState({ status: -1 });
   const [currentPage, setCurrPage] = useState(1);
   const [risk, setRisk] = useState();
   var axiosCall = false;
@@ -58,14 +58,14 @@ export default function Accodion() {
     setObj((prevState) => ({ ...prevState, [i]: { val, score } }));
   };
   //Axios call on submit
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     validateForm();
     event.preventDefault();
     if (axiosCall) {
       const name = event.target.name.value;
       const email = event.target.email.value;
       const mobile = event.target.contact.value;
-      await axios
+      axios
         .post("/insertProfileData", { obj, name, email, mobile })
         .then((res) => {
           !res.data.status &&
@@ -73,9 +73,7 @@ export default function Accodion() {
               .get("/getGraphData", { params: { obj, name, email, mobile } })
               .then((res) => {
                 if (res.data && res.data.result) {
-                  riskMeter.push(true);
-                  riskMeter.push(res.data.result.sum);
-                  riskMeter.push(res.data.result.riskLabel);
+                  setRiskMeter(res.data);
                   setOpenPopupForm(false);
                 }
               }
@@ -85,7 +83,7 @@ export default function Accodion() {
   };
   return (
     <>
-      <section className={`outerContainer ${(openPopupForm || riskMeter[0]) && "blurBackground"}`}>
+      <section className={`outerContainer ${(openPopupForm || !riskMeter.status) && "blurBackground"}`}>
         <h4 className="containerHeading">Please complete the risk profile questionnaire given below</h4>
         <MyAccodian
           data={records}
@@ -148,7 +146,7 @@ export default function Accodion() {
           </div>
         </div>
       )} {
-        riskMeter[0] && (
+        !riskMeter.status && (
           <RiskGraph
             value={riskMeter}
           />
