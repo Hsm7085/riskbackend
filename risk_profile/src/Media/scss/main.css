@@ -72,14 +72,14 @@
 }
 .innerContainer .questions {
   font-size: 0.75em;
-  margin-top: 1.67em 0px 1.67em 0px;
+  margin: 1.67em 0 1.67em 0;
   font-weight: bold;
 }
 
 .radioOptions {
   font-size: 0.85em;
 }
-.radioOptions .inputTypeRadio {
+.radioOptions .radioValues {
   margin-right: 5px;
   position: relative;
   top: 2px;
