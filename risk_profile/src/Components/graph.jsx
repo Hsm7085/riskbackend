@@ -1,33 +1,33 @@
-import React from "react";
-import { PieChart, Pie, Cell, Tooltip } from "recharts";
-const RADIAN = Math.PI / 180;
+import React from "react"
+import { PieChart, Pie, Cell, Tooltip } from "recharts"
+const RADIAN = Math.PI / 180
 const data = [
   { name: "Conservative", value: 10, color: "#6fe100" },
   { name: "Moderate Conservate", value: 10, color: "#b0eb00" },
   { name: "Moderate", value: 10, color: "#f3d000" },
   { name: "Moderate Aggressive", value: 10, color: "#eb9709" },
   { name: "Aggressive", value: 10, color: "#d83039" },
-];
-const horizontalAxis = 300;
-const verticalAxis = 239;
-const innerRadius = 120;
-const outerRadius = 163.6;
+]
+const horizontalAxis = 300
+const verticalAxis = 239
+const innerRadius = 120
+const outerRadius = 163.6
 const needle = (value, data, horizontalAxis, verticalAxis, innerRadius, outerRadius) => {
-  var total = 0;
+  var total = 0
   data.forEach((values) => {
-    total += values.value;
-  });
-  const angle = 180.0 * (1 - value / total);
-  const length = (innerRadius + 2 * outerRadius) / 4;
-  const sin = Math.sin(-RADIAN * angle);
-  const cos = Math.cos(-RADIAN * angle);
-  const needleRadius = 5;
-  const xba = horizontalAxis + 5 + needleRadius * sin;
-  const xbb = horizontalAxis + 5 - needleRadius * sin;
-  const xp = horizontalAxis + 5 + length * cos;
-  const yba = verticalAxis + 5 - needleRadius * cos;
-  const ybb = verticalAxis + 5 + needleRadius * cos;
-  const yp = verticalAxis + 5 + length * sin;
+    total += values.value
+  })
+  const angle = 180.0 * (1 - value / total)
+  const length = (innerRadius + 2 * outerRadius) / 4
+  const sin = Math.sin(-RADIAN * angle)
+  const cos = Math.cos(-RADIAN * angle)
+  const needleRadius = 5
+  const xba = horizontalAxis + 5 + needleRadius * sin
+  const xbb = horizontalAxis + 5 - needleRadius * sin
+  const xp = horizontalAxis + 5 + length * cos
+  const yba = verticalAxis + 5 - needleRadius * cos
+  const ybb = verticalAxis + 5 + needleRadius * cos
+  const yp = verticalAxis + 5 + length * sin
 
   return [
     <circle
@@ -46,8 +46,8 @@ const needle = (value, data, horizontalAxis, verticalAxis, innerRadius, outerRad
       strikethroughPosition="top"
       strokeLinecap="round"
     />,
-  ];
-};
+  ]
+}
 var renderLabel = ({
   x, y, name
 }) => {
@@ -63,8 +63,8 @@ var renderLabel = ({
     >
       {name}
     </text>
-  );
-};
+  )
+}
 export default function RiskGraph(props) {
   return (
     <div className="riskProfileGraphCenter">
@@ -98,5 +98,5 @@ export default function RiskGraph(props) {
       <p className="graphfooterText">Valid upto 03-07-2106</p>
       <button className="riskProfileUpdateBtn" onClick={() => window.location.reload()}>Renew Risk Profile</button>
     </div>
-  );
+  )
 }
