@@ -1,6 +1,6 @@
 const { insertData, getData, getQues } = require('../Repositories/userDb');
 
-async function insertDataServices(user) {
+async function calculateAndInsertData(user) {
   try {
     return await insertData(user)
   }
@@ -9,7 +9,7 @@ async function insertDataServices(user) {
   }
 };
 // Getting user data and calculating Score
-async function getDataServices(user) {
+async function getDataFromDb(user) {
   var result
   try {
     result = await getData(user)
@@ -45,7 +45,7 @@ async function getDataServices(user) {
   }
 };
 
-async function getQuesServices() {
+async function getQuesFromDb() {
   try {
     return await getQues()
   }
@@ -54,4 +54,4 @@ async function getQuesServices() {
   }
 };
 
-module.exports = { insertDataServices, getDataServices, getQuesServices }
+module.exports = { calculateAndInsertData, getDataFromDb, getQuesFromDb }

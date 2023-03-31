@@ -1,6 +1,6 @@
-const { insertDataServices, getDataServices, getQuesServices } = require('../services/userServices')
+const { calculateAndInsertData, getDataFromDb, getQuesFromDb } = require('../services/userServices')
 // Validate Users Data
-const insertDataController = async (req, res) => {
+const validateInsertData = async (req, res) => {
   const user = req.body
   const { name, email, mobile, obj } = user
   const regmobile = /^[0-9]+$/
@@ -11,7 +11,7 @@ const insertDataController = async (req, res) => {
     regmobile.test(mobile) &&
     obj != null && regemail.test(email)) {
     try {
-      const response = await insertDataServices(user)
+      const response = await calculateAndInsertData(user)
       res.send({ status: 0, message: "Request Successful", result: response })
     } catch (error) {
       res.send({ status: -1, message: "Something went wrong", result: error })
@@ -21,22 +21,22 @@ const insertDataController = async (req, res) => {
   }
 }
 // Getting User Data for Graph
-const getDataController = async (req, res) => {
+const getDataFromServices = async (req, res) => {
   try {
-    const response = await getDataServices(req.query)
+    const response = await getDataFromDb(req.query)
     res.send({ status: 0, message: "get Succesful", result: response })
   } catch (error) {
     res.send({ status: -1, message: "Something went wrong", result: error })
   }
 }
 // Getting all questions
-const getQuesController = async (req, res) => {
+const getQuesFromServices = async (req, res) => {
   try {
-    const response = await getQuesServices()
+    const response = await getQuesFromDb()
     res.send({ status: 0, message: "get Succesful", result: response })
   } catch (error) {
     res.send({ status: -1, message: "Something went wrong", result: error })
   }
 }
 
-module.exports = { insertDataController, getDataController, getQuesController }
+module.exports = { validateInsertData, getDataFromServices, getQuesFromServices }
