@@ -13,7 +13,7 @@ const verticalAxis = 239
 const innerRadius = 120
 const outerRadius = 163.6
 const needle = (value, data, horizontalAxis, verticalAxis, innerRadius, outerRadius) => {
-  var total = 0
+  let total = 0
   data.forEach((values) => {
     total += values.value
   })
@@ -21,12 +21,12 @@ const needle = (value, data, horizontalAxis, verticalAxis, innerRadius, outerRad
   const length = (innerRadius + 2 * outerRadius) / 4
   const sin = Math.sin(-RADIAN * angle)
   const cos = Math.cos(-RADIAN * angle)
-  const needleRadius = 5
-  const xba = horizontalAxis + 5 + needleRadius * sin
-  const xbb = horizontalAxis + 5 - needleRadius * sin
+ 
+  const xba = horizontalAxis + 5 + 5 * sin
+  const xbb = horizontalAxis + 5 - 5 * sin
   const xp = horizontalAxis + 5 + length * cos
-  const yba = verticalAxis + 5 - needleRadius * cos
-  const ybb = verticalAxis + 5 + needleRadius * cos
+  const yba = verticalAxis + 5 - 5 * cos
+  const ybb = verticalAxis + 5 + 5 * cos
   const yp = verticalAxis + 5 + length * sin
 
   return [
@@ -48,7 +48,7 @@ const needle = (value, data, horizontalAxis, verticalAxis, innerRadius, outerRad
     />,
   ]
 }
-var renderLabel = ({
+let renderLabel = ({
   x, y, name
 }) => {
   return (

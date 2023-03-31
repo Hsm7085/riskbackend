@@ -11,7 +11,7 @@ export default function Accodion() {
   const [riskMeter, setRiskMeter] = useState({ status: -1 })
   const [currentPage, setCurrPage] = useState(1)
   const [risk, setRisk] = useState()
-  var axiosCall = false
+  let axiosCall = false
   const recordPerPage = 2
   const lastIndex = currentPage * recordPerPage
   const firstIndex = lastIndex - recordPerPage
@@ -31,7 +31,7 @@ export default function Accodion() {
   //Forntend Validation
   const validateForm = () => {
     const { name, contact, email } = formData
-    var messages
+    let messages
     const regmobile = /^[0-9]+$/
     const regemail = /^[a-zA-Z0-9._%+-]+@(?:[a-zA-Z0-9-]+\.)+(?:com|co|in)$/
     switch (true) {

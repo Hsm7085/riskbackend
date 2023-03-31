@@ -1,4 +1,4 @@
-const { insertData, getData, getQues } = require('../Repositories/userdb');
+const { insertData, getData, getQues } = require('../Repositories/userDb');
 
 async function insertDataServices(user) {
   try {
@@ -7,9 +7,8 @@ async function insertDataServices(user) {
   catch (err) {
     throw err
   }
-
 };
-
+// Getting user data and calculating Score
 async function getDataServices(user) {
   var result
   try {
@@ -44,7 +43,6 @@ async function getDataServices(user) {
   catch (err) {
     throw err;
   }
-
 };
 
 async function getQuesServices() {

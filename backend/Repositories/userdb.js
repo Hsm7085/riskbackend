@@ -1,5 +1,5 @@
 const { connection } = require('../connection/db')
-
+//Sql query for getting data
 async function insertData(user) {
     const data = JSON.stringify(user.obj)
     const name = user.name
@@ -15,9 +15,8 @@ async function insertData(user) {
             resolve(results)
         })
     })
-
 }
-
+// Sql query for getting user data 
 async function getData(user) {
     const name = user.name
     const email = user.email
@@ -32,7 +31,7 @@ async function getData(user) {
         })
     })
 }
-
+// Sql query for getting question
 async function getQues() {
     const query = `select questions from riskprofiledata where ID='${1}'`
     return new Promise(function (resolve, reject) {

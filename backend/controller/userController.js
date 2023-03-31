@@ -1,5 +1,5 @@
-const { insertDataServices, getDataServices, getQuesServices } = require('../services/userservices')
-
+const { insertDataServices, getDataServices, getQuesServices } = require('../services/userServices')
+// Validate Users Data
 const insertDataController = async (req, res) => {
   const user = req.body
   const name = user.name
@@ -24,7 +24,7 @@ const insertDataController = async (req, res) => {
     res.send({ status: -1, message: "Something is not good" })
   }
 }
-
+// Getting User Data for Graph
 const getDataController = async (req, res) => {
   try {
     const response = await getDataServices(req.query)
@@ -33,7 +33,7 @@ const getDataController = async (req, res) => {
     res.send({ status: -1, message: "Something went wrong", result: error })
   }
 }
-
+// Getting all questions
 const getQuesController = async (req, res) => {
   try {
     const response = await getQuesServices()
