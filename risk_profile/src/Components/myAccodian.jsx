@@ -20,7 +20,7 @@ export default function MyAccodian(props) {
                   {...id}
                   select={index + 2 * props.currentPage - 1}
                   storeObjectValue={props.storeObjectValue}
-                  obj={props.obj}
+                  userSelectedData={props.userSelectedData}
                 />
               })
             }

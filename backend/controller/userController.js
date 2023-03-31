@@ -1,41 +1,50 @@
 const { calculateAndInsertData, getDataFromDb, getQuesFromDb } = require('../services/userServices')
 // Validate Users Data
-const validateInsertData = async (req, res) => {
-  const user = req.body
-  const { name, email, mobile, obj } = user
-  const regmobile = /^[0-9]+$/
-  const regemail = /^[a-zA-Z0-9._%+-]+@(?:[a-zA-Z0-9-]+\.)+(?:com|co|in)$/
-  if (name.length >= 3 &&
-    name.length <= 30 &&
-    mobile.length == 10 &&
-    regmobile.test(mobile) &&
-    obj != null && regemail.test(email)) {
-    try {
-      const response = await calculateAndInsertData(user)
-      res.send({ status: 0, message: "Request Successful", result: response })
-    } catch (error) {
-      res.send({ status: -1, message: "Something went wrong", result: error })
-    }
-  } else {
-    res.send({ status: -1, message: "Something is not good" })
+const validateInsertData = async (request, response) => {
+  const user = request.body
+  const { name, email, mobile} = user
+  const backendValidation={regmobile : /^[0-9]+$/,regemail : /^[a-zA-Z0-9._%+-]+@(?:[a-zA-Z0-9-]+\.)+(?:com|co|in)$/}
+  try {
+  switch (true) {
+    case name.length < 3:
+      response.send({ status: -1, message: "Name is too short"})
+      break
+    case name.length > 30:
+      response.send({ status: -1, message: "Name is too large"})
+      break
+    case ! backendValidation.regemail.test(email):
+      response.send({ status: -1, message: "Give a valid email"})
+      break
+    case mobile.length != 10 || ! backendValidation.regmobile.test(mobile):
+      response.send({ status: -1, message: "Give Valid Mobile Number"})
+      break
+    default:
+      const results = await calculateAndInsertData(user)
+      response.send({ status: 0, message: "Request Successful", result: results })
+      break
+  }
+
+}
+  catch (error) {
+    response.send({ status: -1, message: "Something went wrong", result: error })
   }
 }
 // Getting User Data for Graph
-const getDataFromServices = async (req, res) => {
+const getDataFromServices = async (request, response) => {
   try {
-    const response = await getDataFromDb(req.query)
-    res.send({ status: 0, message: "get Succesful", result: response })
+    const results = await getDataFromDb(request.query)
+    response.send({ status: 0, message: "get Succesful", result: results })
   } catch (error) {
-    res.send({ status: -1, message: "Something went wrong", result: error })
+    response.send({ status: -1, message: "Something went wrong", result: error })
   }
 }
 // Getting all questions
-const getQuesFromServices = async (req, res) => {
+const getQuesFromServices = async (request, response) => {
   try {
-    const response = await getQuesFromDb()
-    res.send({ status: 0, message: "get Succesful", result: response })
+    const results = await getQuesFromDb()
+    response.send({ status: 0, message: "get Succesful", result: results})
   } catch (error) {
-    res.send({ status: -1, message: "Something went wrong", result: error })
+    response.send({ status: -1, message: "Something went wrong", result: error })
   }
 }
 

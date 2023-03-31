@@ -1,15 +1,16 @@
-const { insertData, getData, getQues } = require('../Repositories/userDb');
+const { insertData, getData, getQues } = require('../Repositories/userDb')
 
-async function calculateAndInsertData(user) {
+const calculateAndInsertData = async (user) => {
   try {
-    return await insertData(user)
+    const result= await insertData(user)
+    return result
   }
-  catch (err) {
-    throw err
+  catch (error) {
+    throw error
   }
-};
+}
 // Getting user data and calculating Score
-async function getDataFromDb(user) {
+const getDataFromDb = async (user) => {
   var result
   try {
     result = await getData(user)
@@ -38,20 +39,21 @@ async function getDataFromDb(user) {
         riskLabel = "Aggressive"
         break
     }
-    return { sum, riskLabel };
+    return { sum, riskLabel }
   }
-  catch (err) {
-    throw err;
+  catch (error) {
+    throw error
   }
-};
+}
 
-async function getQuesFromDb() {
+const getQuesFromDb = async () => {
   try {
-    return await getQues()
+     const result=await getQues()
+     return result
   }
-  catch (err) {
-    throw err
+  catch (error) {
+    throw error
   }
-};
+}
 
 module.exports = { calculateAndInsertData, getDataFromDb, getQuesFromDb }

@@ -5,7 +5,7 @@ import "../Media/scss/main.css"
 import RiskGraph from "./graph"
 export default function Accodion() {
   const [openPopupForm, setOpenPopupForm] = useState(false)
-  const [obj, setObj] = useState({})
+  const [userSelectedData, setUserSelectedData] = useState({})
   const [validationMessages, setValidationMessages] = useState()
   const [formData, setFormData] = useState({})
   const [riskMeter, setRiskMeter] = useState({ status: -1 })
@@ -20,8 +20,8 @@ export default function Accodion() {
   useEffect(() => {
     axios
       .get("/getRiskProfileQuestions",)
-      .then((res) => {
-        setRisk(res.data.result[0].questions)
+      .then((response) => {
+        setRisk(response.data.result[0].questions)
       })
   }, [])
   //Getting Updated Values in Forms
@@ -55,7 +55,7 @@ export default function Accodion() {
   }
   //Store index and their answers in object
   const storeObjectValue = (i, val, score) => {
-    setObj((prevState) => ({ ...prevState, [i]: { val, score } }))
+    setUserSelectedData((prevState) => ({ ...prevState, [i]: { val, score } }))
   }
   //Axios call on submit
   const handleSubmit = (event) => {
@@ -66,14 +66,14 @@ export default function Accodion() {
       const email = event.target.email.value
       const mobile = event.target.contact.value
       axios
-        .post("/insertProfileData", { obj, name, email, mobile })
-        .then((res) => {
-          !res.data.status &&
+        .post("/insertProfileData", { userSelectedData, name, email, mobile })
+        .then((response) => {
+          !response.data.status &&
             axios
-              .get("/getGraphData", { params: { obj, name, email, mobile } })
-              .then((res) => {
-                if (res.data && res.data.result) {
-                  setRiskMeter(res.data)
+              .get("/getGraphData", { params: { name, email, mobile } })
+              .then((response) => {
+                if (response.data && response.data.result) {
+                  setRiskMeter(response.data)
                   setOpenPopupForm(false)
                 }
               }
@@ -89,10 +89,10 @@ export default function Accodion() {
           data={records}
           storeObjectValue={storeObjectValue}
           currentPage={currentPage}
-          obj={obj}
+          userSelectedData={userSelectedData}
         />
         <button className="btn" disabled={currentPage == 1} onClick={() => { (currentPage != 1) && setCurrPage(currentPage - 1) }}>Prev</button>
-        <button disabled={risk && risk.length != (obj && Object.keys(obj).length)} className={currentPage == totalPage ? 'btn proceedBtnShow' : 'proceedBtnHide'} onClick={() => setOpenPopupForm(true)} >
+        <button disabled={risk && risk.length != (userSelectedData && Object.keys(userSelectedData).length)} className={currentPage == totalPage ? 'btn proceedBtnShow' : 'proceedBtnHide'} onClick={() => setOpenPopupForm(true)} >
           Proceed
         </button>
         <button className="btn nextBtn" disabled={currentPage == totalPage} onClick={() => { (currentPage != totalPage) && setCurrPage(currentPage + 1) }}>Next</button>

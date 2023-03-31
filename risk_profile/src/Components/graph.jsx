@@ -39,7 +39,7 @@ const needle = (value, data, horizontalAxis, verticalAxis, innerRadius, outerRad
       stroke="orange"
     />,
     <path
-      d={`M${xba} ${yba}L${xbb} ${ybb} L${xp} ${yp} L${xba} ${yba}`}
+      d={`M${xba} ${yba}L${xbb} ${ybb} L${xp} ${yp}`}
       stroke="black"
       fill="black"
       r={100 * 0.1}

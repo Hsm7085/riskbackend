@@ -12,7 +12,7 @@ export default function Value(props) {
           className="radioValues"
           onChange={(e) => { props.storeObjectValue(props.select, e.target.value, props.score) }}
           required
-          checked={props.obj[props.select] && props.obj[props.select].val == props.option}
+          checked={props.userSelectedData[props.select] && props.userSelectedData[props.select].val == props.option}
         />
         {props.option}
       </label>
