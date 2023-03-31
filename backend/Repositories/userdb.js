@@ -1,10 +1,8 @@
 const { connection } = require('../connection/db')
 //Sql query for getting data
 async function insertData(user) {
-    const data = JSON.stringify(user.obj)
-    const name = user.name
-    const email = user.email
-    const mobile = user.mobile
+    const { obj, name, email, mobile } = user
+    const data = JSON.stringify(obj)
     const query = `insert into details(NAME,EMAIL,MOBILE,USERDATA) values('${name}','${email}','${mobile}','${data}') ON DUPLICATE KEY UPDATE    
     USERDATA='${data}'`
     return new Promise(function (resolve, reject) {
@@ -18,9 +16,7 @@ async function insertData(user) {
 }
 // Sql query for getting user data 
 async function getData(user) {
-    const name = user.name
-    const email = user.email
-    const mobile = user.mobile
+    const { name, email, mobile } = user
     const query = `select USERDATA from details where NAME='${name}'and EMAIL='${email}'and MOBILE=${mobile}`
     return new Promise(function (resolve, reject) {
         connection.query(query, function (err, res) {

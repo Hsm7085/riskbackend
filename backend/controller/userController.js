@@ -2,13 +2,9 @@ const { insertDataServices, getDataServices, getQuesServices } = require('../ser
 // Validate Users Data
 const insertDataController = async (req, res) => {
   const user = req.body
-  const name = user.name
-  const email = user.email
-  const mobile = user.mobile
-  const obj = user.obj
+  const { name, email, mobile, obj } = user
   const regmobile = /^[0-9]+$/
   const regemail = /^[a-zA-Z0-9._%+-]+@(?:[a-zA-Z0-9-]+\.)+(?:com|co|in)$/
-
   if (name.length >= 3 &&
     name.length <= 30 &&
     mobile.length == 10 &&

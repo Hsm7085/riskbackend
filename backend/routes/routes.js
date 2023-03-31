@@ -8,6 +8,6 @@ router.use(bodyParser.urlencoded({ extended: true }))
 
 router.post('/insertProfileData',insertDataController)
 router.get('/getGraphData',getDataController)
-router.get('/riskProfileQuestions',getQuesController)
+router.get('/getRiskProfileQuestions',getQuesController)
 
 module.exports = router
