@@ -9,7 +9,7 @@ const data = [
   { name: "Aggressive", value: 10, color: "#d83039" },
 ]
 const horizontalAxis = 300
-const verticalAxis = 240
+const verticalAxis = 239
 const innerRadius = 120
 const outerRadius = 163.6
 const needle = (value, data, horizontalAxis, verticalAxis, innerRadius, outerRadius) => {
