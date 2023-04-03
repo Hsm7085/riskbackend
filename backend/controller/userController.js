@@ -1,4 +1,4 @@
-const { calculateAndInsertData, getDataFromDb, getQuesFromDb } = require('../services/userServices')
+const {  submitFormData , getDataFromDb, getQuesFromDb } = require('../services/userServices')
 // Validate Users Data
 const validateInsertData = async (request, response) => {
   const user = request.body
@@ -19,7 +19,7 @@ const validateInsertData = async (request, response) => {
       response.send({ status: -1, message: "Give Valid Mobile Number"})
       break
     default:
-      const results = await calculateAndInsertData(user)
+      const results = await submitFormData(user)
       response.send({ status: 0, message: "Request Successful", result: results })
       break
   }
@@ -33,7 +33,7 @@ const validateInsertData = async (request, response) => {
 const getDataFromServices = async (request, response) => {
   try {
     const results = await getDataFromDb(request.query)
-    response.send({ status: 0, message: "get Succesful", result: results })
+    response.send({ status: 0, message: "Request Successful", result: results })
   } catch (error) {
     response.send({ status: -1, message: "Something went wrong", result: error })
   }

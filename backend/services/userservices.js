@@ -1,6 +1,6 @@
-const { insertData, getData, getQues } = require('../Repositories/userDb')
+const { insertData, getData, getQues } = require('../repositories/userDb')
 
-const calculateAndInsertData = async (user) => {
+const  submitFormData  = async (user) => {
   try {
     const result= await insertData(user)
     return result
@@ -11,16 +11,18 @@ const calculateAndInsertData = async (user) => {
 }
 // Getting user data and calculating Score
 const getDataFromDb = async (user) => {
-  var result
+  let result
   try {
     result = await getData(user)
     if (typeof (result) != 'object') {
       throw "Something went wrong"
     }
-    var sum = 0
-    var riskLabel
-    for (var i = 1; i <= Object.keys(result[0].USERDATA).length; i++) {
-      sum = sum + result[0].USERDATA[i].score
+    let sum = 0
+    let riskLabel
+    let dataLength=Object.keys(result[0].USERDATA).length
+    let {USERDATA}=result[0]
+    for (let i = 1; i <=dataLength ; i++) {
+      sum = sum + USERDATA[i].score
     }
     switch (true) {
       case sum == 0 && sum <= 10:
@@ -56,4 +58,4 @@ const getQuesFromDb = async () => {
   }
 }
 
-module.exports = { calculateAndInsertData, getDataFromDb, getQuesFromDb }
+module.exports = { submitFormData , getDataFromDb, getQuesFromDb }
