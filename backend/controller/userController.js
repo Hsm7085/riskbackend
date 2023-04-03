@@ -1,4 +1,4 @@
-const {  submitFormData , getDataFromDb, getQuesFromDb } = require('../services/userServices')
+const {  submitFormData , getDataFromDb, getQuesFromDb } = require('../services/userService')
 // Validate Users Data
 const validateInsertData = async (request, response) => {
   const user = request.body

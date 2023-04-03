@@ -1,4 +1,4 @@
-const { insertData, getData, getQues } = require('../repositories/userDb')
+const { insertData, getData, getQues } = require('../repositorie/userDataBase')
 
 const  submitFormData  = async (user) => {
   try {
